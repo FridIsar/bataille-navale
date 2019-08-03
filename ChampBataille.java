@@ -1,10 +1,10 @@
 
-public class ChampBataille  {
+public class ChampBataille	{
   private int[][] t;
 
-  public ChampBataille()  {  }
+  public ChampBataille()	{  }
 
-  public ChampBataille(int l) {
+  public ChampBataille(int l)	{
     t = new int[l][l];
     for (int i = 0; i < t.length; i++) {
       for (int j = 0; j < t[i].length; j++) {
@@ -31,7 +31,7 @@ public class ChampBataille  {
     return s;
   }
 
-  public void setBoat(int x, int y)  {
+  public void setBoat(int x, int y)	{
     this.t[x][y] = 1;
   }
 
