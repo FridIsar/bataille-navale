@@ -1,4 +1,4 @@
-public class Projet {
+public class Projet { //ajout
 
   public static final int L_CHAMP = 10;
   public static final int P_CHAMP = 1;
