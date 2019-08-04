@@ -6,10 +6,11 @@ public class Projet	{ //ajout
   public static void main(String[] args)	{
     ChampBataille cb = new ChampBataille(L_CHAMP);
     System.out.println(cb);
-    cb.setBoat(3,4);
-    cb.setBoat(2,7);
-    cb.setBoat(5,1);
-    cb.setBoat(9,6);
+    Fregate f1 = new Fregate(5,5);
+		cb.refresh(f1);
     System.out.println(cb);
+		f1.avancer();
+		cb.refresh(f1); //était setboat, à méditer
+		System.out.println(cb);
   }
 }
