@@ -15,12 +15,25 @@ public class ChampBataille	{
 
   public String toString() {
     String s = new String();
-    for (int i = 0; i < t.length; i++) {
+    s+="|  |";
+    for (int i = 1; i < t.length+1; i++)  {
+      if (i < 10) {
+        s+=" "+i;
+      }
+      else  {
+        s+=i;
+      }
       s+="|";
+    }
+    s+="\n";
+    for (int i = 0; i < t.length; i++)  {
+      s+="| "+(char) (i+65)+"|";
       for (int j = 0; j < t[i].length; j++) {
-        switch (t[i][j])  {
+        int type = t[i][j];
+        switch (type)  {
           case 0:
             s+="~~";
+            break;
           case 1:
             s+="F1";
         }
