@@ -1,6 +1,7 @@
 
 public class ChampBataille	{
   private int[][] t;
+	private int longueurChamp;
 
   public ChampBataille()	{  }
 
@@ -11,6 +12,7 @@ public class ChampBataille	{
         t[i][j] = 0;
       }
     }
+		this.longueurChamp = l;
   }
 
   public String toString() {
@@ -36,6 +38,22 @@ public class ChampBataille	{
             break;
           case 1:
             s+="F1";
+						break;
+					case 2:
+						s+="F2";
+						break;
+					case 3:
+						s+="C1";
+						break;
+					case 4:
+						s+="C2";
+						break;
+					case 5:
+						s+="S1";
+						break;
+					case 6:
+						s+="S2";
+						break;
         }
         s+="|";
       }
@@ -48,10 +66,17 @@ public class ChampBataille	{
     this.t[x][y] = 1;
   }
 
-	public void refresh(Bateau bat)	{ //doit choper tous
-		//les bateux d'un array, voir si ils sont en vie
-		// et les placer/enlever (refresh se fait a chque action)
-    this.t[bat.getX()-1][bat.getY()-1] = 1;
+	public void refresh(Bateau[] bat)	{
+		// Un bateau sera défini par 2 points (x+taille; y+taille | x; y+taille | x - taille; y | x - taille; y - taille)
+		// String[] orientations = {"horizontal", "vertical", "diagonal", "antiDiagonal"};
+		// à l'init coordonnées random + orientation random
+		// méthode isOutside() à faire
+		for (int i = 0; i < bat.length; i++)	{
+			this.t[bat[i].getX()-1][bat[i].getY()-1] = i+1;
+			for (int j = 0; j < bat[i].getTaille(); j++)	{
+				this.t[bat[i].getX()-1+j][bat[i].getY()-1] = i+1;
+			}
+		}
   }
 
 }

@@ -33,8 +33,8 @@ public class Fregate implements Bateau	{
 		return this.resistance;
 	}
 
-	public int getPosition()	{
-		return this.resistance;
+	public int getTaille()	{
+		return this.taille;
 	}
 
 	public void avancer()	{
