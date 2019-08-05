@@ -1,7 +1,10 @@
 public class SousMarin implements Bateau	{
-	public static final int resistance = 6;
+	public static final int resistance = 4;
 	public static final int munitions = 10;
 	public static final int taille = 2;
+	public Orientation orientation =  Orientation.Horizontal;
+	//attaque ?
+
 
 	private int x;
 	private int y;
@@ -19,6 +22,10 @@ public class SousMarin implements Bateau	{
 
 	public int getY()	{
 		return this.y;
+	}
+
+	public Orientation getOrientation()	{
+		return this.orientation;
 	}
 
 	public void setX(int monX)	{

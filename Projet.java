@@ -17,6 +17,8 @@ public class Projet	{ //ajout
     System.out.println(cb);
 		//f1.avancer();
 		cb.refresh(bateaux); //était setboat, à méditer
-		System.out.println(bateaux[2].getResistance());
+    for (int i = 0; i < bateaux.length; i++)	{
+			System.out.println(bateaux[i].getOrientation());
+		}
   }
 }
