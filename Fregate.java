@@ -2,6 +2,7 @@ public class Fregate implements Bateau	{
 	public static final int resistance = 6;
 	public static final int munitions = 10;
 	public static final int taille = 4;
+	public Orientation orientation =  Orientation.AntiDiagonal;
 
 	private int x;
 	private int y;
@@ -19,6 +20,10 @@ public class Fregate implements Bateau	{
 
 	public int getY()	{
 		return this.y;
+	}
+
+	public Orientation getOrientation()	{
+		return this.orientation;
 	}
 
 	public void setX(int monX)	{
