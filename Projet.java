@@ -6,10 +6,10 @@ public class Projet	{ //ajout
   public static void main(String[] args)	{
     ChampBataille cb = new ChampBataille(L_CHAMP);
     System.out.println(cb);
-    Fregate f1 = new Fregate(5,5);
-		Fregate f2 = new Fregate(2,8);
-		Croiseur c1 = new Croiseur(1,1);
-		Croiseur c2 = new Croiseur(4,4);
+    // Fregate f1 = new Fregate(5,5);
+		// Fregate f2 = new Fregate(2,8);
+		// Croiseur c1 = new Croiseur(1,1);
+		// Croiseur c2 = new Croiseur(4,4);
 		SousMarin s1 = new SousMarin(2,2);
 		SousMarin s2 = new SousMarin(3,6);
 		Bateau[] bateaux = {f1, f2, c1, c2, s1, s2};
@@ -18,6 +18,7 @@ public class Projet	{ //ajout
 		//f1.avancer();
 		cb.refresh(bateaux); //était setboat, à méditer
     for (int i = 0; i < bateaux.length; i++)	{
+      bateaux[i].setRandomOrientation();
 			System.out.println(bateaux[i].getOrientation());
 		}
   }
