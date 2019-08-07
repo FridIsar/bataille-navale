@@ -27,7 +27,24 @@ public class Position	{
 	}
 
   public boolean isInside()	{
-    return ((this.x >= 0 && this.x <= L_CHAMP) && (this.y >= 0 && this.y <= L_CHAMP));
+    return ((this.x >= 0 && this.x <= Globals.getLongueurChampMax()) && (this.y >= 0 && this.y <= Globals.getLongueurChampMax()));
   }
 
+	public void avanceeHorizontale()	{
+		this.y+=1;
+	}
+
+	public void avanceeVerticale()	{
+		this.x+=1;
+	}
+
+	public void avanceeDiagonale()	{
+		this.x+=1;
+		this.y+=1;
+	}
+
+	public void avanceeAntiDiagonale()	{
+		this.x+=1;
+		this.y-=1;
+	}
 }
