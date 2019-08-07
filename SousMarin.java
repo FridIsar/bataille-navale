@@ -5,68 +5,17 @@ public class SousMarin implements Bateau	{
 	public Orientation orientation;
 	//attaque ?
 
-
-	private Position debut;
-	private Position fin;
+	private Position tete = new Position(3, 3);
+	private Position[] emplacements = new Position[taille];
 
 	public SousMarin()	{	}
 
-	public SousMarin(Position deb, Position fin)	{
-		this.debut = deb;
-		this.fin = fin;
+	public SousMarin(Position pos)	{	// position de départ
+		this.tete = pos;
 	}
 
-	public int getX()	{
-		return this.debut.getX();
-	}
-
-	public int getY()	{
-		return this.fin.getX();
-	}
-
-	public Orientation getOrientation()	{
-		return this.orientation;
-	}
-
-	public void setRandomOrientation()	{
-		double nbAleatoire =  Math.random() * 4 + 1;
-		switch ((int) nbAleatoire)	{
-			case 1:
-					this.orientation = Orientation.Horizontal;
-					break;
-			case 2:
-					this.orientation = Orientation.Vertical;
-					break;
-			case 3:
-					this.orientation = Orientation.AntiDiagonal;
-					break;
-			case 4:
-					this.orientation = Orientation.Diagonal;
-					break;
-		}
-	}
-
-	public void setX(int monX)	{
-		this.x.setX(monX);
-	}
-
-	public void setY(int monY)	{
-		this.y.setY(monY);
-	}
-
-	public void setPositionFin()	{
-		if (this.orientation == Orientation.Horizontal)	{
-			this.debut.setX() //a completer releg or not ?
-		}
-		if (this.orientation == Orientation.Vertical)	{
-			this.y = this.x + taille;
-		}
-		if (this.orientation == Orientation.AntiDiagonal)	{
-			this.y = this.x + taille;
-		}
-		if (this.orientation == Orientation.Diagonal)	{
-			this.y = this.x + taille;
-		}
+	public Position[] getEmplacements()	{
+		return this.emplacements;
 	}
 
 	public int getResistance()	{
@@ -77,8 +26,63 @@ public class SousMarin implements Bateau	{
 		return this.taille;
 	}
 
+	public void fillBoat()	{	// position de départ
+		this.emplacements[0] = tete;
+		for (int i = 1; i < taille; i++)	{
+			this.emplacements[i] = this.emplacements[i-1];
+
+			if (this.orientation == Orientation.Horizontal)	{
+				this.emplacements[i].avanceeHorizontale();
+			}
+			if (this.orientation == Orientation.Vertical)	{
+				this.emplacements[i].avanceeVerticale();
+			}
+			if (this.orientation == Orientation.AntiDiagonal)	{
+				this.emplacements[i].avanceeAntiDiagonale();
+			}
+			if (this.orientation == Orientation.Diagonal)	{
+				this.emplacements[i].avanceeDiagonale();
+			}
+		}
+	}
+
+	public void randomizePosition()	{
+		double yAleatoire =  Math.random() * Globals.getLongueurChampMax() + 1;
+		double xAleatoire =  Math.random() * Globals.getLongueurChampMax() + 1;
+		this.tete = new Position((int) xAleatoire, (int) yAleatoire);
+	}
+
+	public Orientation getOrientation()	{
+		return this.orientation;
+	}
+
+	public void setRandomOrientation()	{
+		double nbAleatoire =  Math.random() * 4 + 1;
+		switch ((int) nbAleatoire)	{
+			case 1:
+			this.orientation = Orientation.Horizontal;
+			break;
+			case 2:
+			this.orientation = Orientation.Vertical;
+			break;
+			case 3:
+			this.orientation = Orientation.AntiDiagonal;
+			break;
+			case 4:
+			this.orientation = Orientation.Diagonal;
+			break;
+		}
+	}
+
 	public boolean isInside()	{
-		return (this.debut.isInside() && this.fin.isInside());
+		boolean inside = true;
+		for (int i = 0; i < this.taille; i++)	{
+			if (this.emplacements[i].getX() > Globals.getLongueurChampMax() ||
+										this.emplacements[i].getY() > Globals.getLongueurChampMax())	{
+				inside = false;
+			}
+		}
+		return inside;
 	}
 
 	// public void avancer()	{

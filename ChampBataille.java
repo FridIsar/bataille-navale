@@ -71,12 +71,13 @@ public class ChampBataille	{
 		// String[] orientations = {"horizontal", "vertical", "diagonal", "antiDiagonal"};
 		// à l'init coordonnées random + orientation random
 		// méthode isOutside() à faire
-		for (int i = 0; i < bat.length; i++)	{
-			this.t[bat[i].getX()-1][bat[i].getY()-1] = i+1;
-			for (int j = 0; j < bat[i].getTaille(); j++)	{
-				this.t[bat[i].getX()-1+j][bat[i].getY()-1] = i+1;
-			}
-		}
+		// for (int i = 0; i < bat.length; i++)	{
+		// 	this.t[bat[i].getX()-1][bat[i].getY()-1] = i+1;
+		// 	for (int j = 0; j < bat[i].getTaille(); j++)	{
+    //     bat[i].getPosition().avancee()
+		// 		this.t[bat[i].getX()-1+j][bat[i].getY()-1] = i+1;
+		// 	}
+		// }
   }
 
 }

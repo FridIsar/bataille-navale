@@ -61,7 +61,7 @@ public class Fregate implements Bateau	{
 	}
 
 	public boolean isInside()	{
-		return ((this.x >= 0 && this.x <= L_CHAMP) && (this.y >= 0 && this.y <= L_CHAMP));
+		return ((this.x >= 0 && this.x <= Globals.getLongueurChampMax()) && (this.y >= 0 && this.y <= Globals.getLongueurChampMax()));
 	}
 
 	public void avancer()	{
