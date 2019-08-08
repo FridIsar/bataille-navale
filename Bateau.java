@@ -10,6 +10,7 @@ public interface Bateau	{
 	//public abstract void tirer();
 	public abstract int getTaille();
 	public abstract void fillBoat();
+	public abstract Position[] getEmplacements();
 	public abstract int getResistance();
 	public void randomizePosition();
 	public abstract Orientation getOrientation();

@@ -10,6 +10,11 @@ public class Position	{
 		this.y = monY;
 	}
 
+	public Position(Position pos)	{
+		this.x = pos.getX();
+		this.y = pos.getY();
+	}
+
 	public int getX()	{
 		return this.x;
 	}
@@ -46,5 +51,10 @@ public class Position	{
 	public void avanceeAntiDiagonale()	{
 		this.x+=1;
 		this.y-=1;
+	}
+
+	public String toString()	{
+		String s = "(" + this.x + "; " + this.y + ")";
+		return s;
 	}
 }

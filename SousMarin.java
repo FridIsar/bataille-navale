@@ -1,7 +1,7 @@
 public class SousMarin implements Bateau	{
 	public static final int resistance = 4;
 	public static final int munitions = 10;
-	public static final int taille = 2;
+	public static final int taille = 8;
 	public Orientation orientation;
 	//attaque ?
 
@@ -29,8 +29,8 @@ public class SousMarin implements Bateau	{
 	public void fillBoat()	{	// position de départ
 		this.emplacements[0] = tete;
 		for (int i = 1; i < taille; i++)	{
-			this.emplacements[i] = this.emplacements[i-1];
-
+			this.emplacements[i] = new Position(this.emplacements[i-1]);
+														// evite de pointer sur la m position
 			if (this.orientation == Orientation.Horizontal)	{
 				this.emplacements[i].avanceeHorizontale();
 			}
@@ -45,6 +45,13 @@ public class SousMarin implements Bateau	{
 			}
 		}
 	}
+
+	public void affBoat() {
+    System.out.println(this.getOrientation());
+    for (int i = 0; i < this.getTaille(); i++)  {
+      System.out.println(this.getEmplacements()[i]);
+    }
+  }
 
 	public void randomizePosition()	{
 		double yAleatoire =  Math.random() * Globals.getLongueurChampMax() + 1;
@@ -77,8 +84,10 @@ public class SousMarin implements Bateau	{
 	public boolean isInside()	{
 		boolean inside = true;
 		for (int i = 0; i < this.taille; i++)	{
-			if (this.emplacements[i].getX() > Globals.getLongueurChampMax() ||
-										this.emplacements[i].getY() > Globals.getLongueurChampMax())	{
+			if ((this.emplacements[i].getX() > Globals.getLongueurChampMax() ||
+			 							this.emplacements[i].getX() < 1) ||
+										(this.emplacements[i].getY() > Globals.getLongueurChampMax() ||
+										 							this.emplacements[i].getY() < 1))	{
 				inside = false;
 			}
 		}
