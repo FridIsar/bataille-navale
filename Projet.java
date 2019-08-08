@@ -18,20 +18,18 @@ public class Projet	{ //ajout
 			bateaux[i].setRandomOrientation();
       bateaux[i].randomizePosition();
 		}
-
 		for(int i = 0; i < bateaux.length; i++)	{
-			bateaux[i].fillBoat();
+      bateaux[i].fillBoat();
+      System.out.println(bateaux[i].isInside());
+      s1.affBoat();
 			if(!bateaux[i].isInside())	{
 				bateaux[i].randomizePosition();
 				i-=1;
 			}
 		}
-
-
+		//f1.avancer();
 		cb.refresh(bateaux);
     System.out.println(cb);
-		//f1.avancer();
-		cb.refresh(bateaux); //était setboat, à méditer
     // for (int i = 0; i < bateaux.length; i++)	{
     //   // bateaux[i].setRandomOrientation();
 		// 	System.out.println(bateaux[i].getOrientation());

@@ -66,18 +66,18 @@ public class ChampBataille	{
     this.t[x][y] = 1;
   }
 
-	public void refresh(Bateau[] bat)	{
+	public void refresh(Bateau[] bateaux)	{
 		// Un bateau sera défini par 2 points (x+taille; y+taille | x; y+taille | x - taille; y | x - taille; y - taille)
 		// String[] orientations = {"horizontal", "vertical", "diagonal", "antiDiagonal"};
 		// à l'init coordonnées random + orientation random
 		// méthode isOutside() à faire
-		// for (int i = 0; i < bat.length; i++)	{
-		// 	this.t[bat[i].getX()-1][bat[i].getY()-1] = i+1;
-		// 	for (int j = 0; j < bat[i].getTaille(); j++)	{
-    //     bat[i].getPosition().avancee()
-		// 		this.t[bat[i].getX()-1+j][bat[i].getY()-1] = i+1;
-		// 	}
-		// }
+		for (int i = 0; i < bateaux.length; i++)	{
+      Position[] emplacements = bateaux[i].getEmplacements();
+			this.t[emplacements[0].getX()-1][emplacements[0].getY()-1] = i+1;
+			for (int j = 0; j < bateaux[i].getTaille(); j++)	{
+				this.t[emplacements[j].getX()-1][emplacements[j].getY()-1] = i+1;
+			}
+		}
   }
 
 }
