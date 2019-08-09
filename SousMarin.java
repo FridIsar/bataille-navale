@@ -1,7 +1,7 @@
 public class SousMarin implements Bateau	{
 	public static final int resistance = 4;
 	public static final int munitions = 10;
-	public static final int taille = 8;
+	public static final int taille = 2;
 	public Orientation orientation;
 	//attaque ?
 
@@ -92,6 +92,26 @@ public class SousMarin implements Bateau	{
 			}
 		}
 		return inside;
+	}
+
+	public boolean touchesA(Bateau[] bateaux)	{
+		for (int i = 0; i < bateaux.length; i++) {
+			if (this != bateaux[i])	{ //pas de equals ici car on compare les adresses
+				if (this.touches(bateaux[i])	{
+					System.out.println("boat is hit !");
+				}
+			}
+		}
+	}
+
+	public boolean touches(Bateau bateau)	{
+		for (int i = 0; i < this.emplacements.length; i++) {
+			for (int j = 0; bateau.getEmplacements().length; j++)	{
+				if (this.emplacements[i].equals(bateau.getEmplacements()[i])	{
+					System.out.println("le boat is hit !");
+				}
+			}
+		}
 	}
 
 	// public void avancer()	{

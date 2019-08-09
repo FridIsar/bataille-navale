@@ -9,10 +9,13 @@ public class Projet	{ //ajout
 		// Fregate f2 = new Fregate(2,8);
 		// Croiseur c1 = new Croiseur(1,1);
 		// Croiseur c2 = new Croiseur(4,4);
-		SousMarin s1 = new SousMarin();
+    SousMarin s1 = new SousMarin();
+    SousMarin s2 = new SousMarin();
+    SousMarin s3 = new SousMarin();
+    SousMarin s4 = new SousMarin();
 		// SousMarin s2 = new SousMarin(3,6);
 		// Bateau[] bateaux = {f1, f2, c1, c2, s1, s2};
-    Bateau[] bateaux = {s1};
+    Bateau[] bateaux = {s1, s2, s3, s4};
 
     for(int i = 0; i < bateaux.length; i++)	{
 			bateaux[i].setRandomOrientation();
@@ -20,13 +23,12 @@ public class Projet	{ //ajout
 		}
 		for(int i = 0; i < bateaux.length; i++)	{
       bateaux[i].fillBoat();
-      System.out.println(bateaux[i].isInside());
-      s1.affBoat();
 			if(!bateaux[i].isInside())	{
 				bateaux[i].randomizePosition();
 				i-=1;
 			}
 		}
+
 		//f1.avancer();
 		cb.refresh(bateaux);
     System.out.println(cb);
