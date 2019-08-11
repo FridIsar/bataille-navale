@@ -1,4 +1,6 @@
-public class Projet	{ //ajout
+public class Projet	{
+// FAIRE AVANCER RECULER
+// FAIRE TIRER ET RESISTANCE
 // le prof n'aime pas les returns dans boucle (à éviter)
 
   public static void main(String[] args)	{
@@ -17,17 +19,29 @@ public class Projet	{ //ajout
 		// Bateau[] bateaux = {f1, f2, c1, c2, s1, s2};
     Bateau[] bateaux = {s1, s2, s3, s4};
 
-    for(int i = 0; i < bateaux.length; i++)	{
-			bateaux[i].setRandomOrientation();
-      bateaux[i].randomizePosition();
-		}
-		for(int i = 0; i < bateaux.length; i++)	{
-      bateaux[i].fillBoat();
-			if(!bateaux[i].isInside())	{
-				bateaux[i].randomizePosition();
-				i-=1;
+		boolean isvalid = false;
+
+		while (!isvalid)	{
+	    for(int i = 0; i < bateaux.length; i++)	{
+				bateaux[i].setRandomOrientation();
+	      bateaux[i].randomizePosition();
 			}
-		}
+
+			for(int i = 0; i < bateaux.length; i++)	{
+	      bateaux[i].fillBoat();
+				if(!bateaux[i].isInside())	{
+					bateaux[i].randomizePosition();
+					i-=1;
+				}
+			}
+			isvalid = true; //for now
+			for(int i = 0; i < bateaux.length; i++)	{
+				if(bateaux[i].touchesA(bateaux))	{
+					isvalid = false;
+					System.out.println("on recommence");
+				}
+			}
+	}
 
 		//f1.avancer();
 		cb.refresh(bateaux);

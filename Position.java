@@ -31,8 +31,13 @@ public class Position	{
 		this.y = monY;
 	}
 
+	public boolean equals(Position pos)	{
+		return (this.x == pos.getX() && this.y == pos.getY());
+	}
+
   public boolean isInside()	{
-    return ((this.x >= 0 && this.x <= Globals.getLongueurChampMax()) && (this.y >= 0 && this.y <= Globals.getLongueurChampMax()));
+    return ((this.x >= 0 && this.x <= Globals.getLongueurChampMax()) &&
+						(this.y >= 0 && this.y <= Globals.getLongueurChampMax()));
   }
 
 	public void avanceeHorizontale()	{

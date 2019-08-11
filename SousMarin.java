@@ -1,4 +1,4 @@
-public class SousMarin implements Bateau	{
+public class SousMarin extends Bateau	{
 	public static final int resistance = 4;
 	public static final int munitions = 10;
 	public static final int taille = 2;
@@ -13,6 +13,9 @@ public class SousMarin implements Bateau	{
 	public SousMarin(Position pos)	{	// position de départ
 		this.tete = pos;
 	}
+	public Orientation getOrientation()	{
+		return this.orientation;
+	}
 
 	public Position[] getEmplacements()	{
 		return this.emplacements;
@@ -26,92 +29,35 @@ public class SousMarin implements Bateau	{
 		return this.taille;
 	}
 
-	public void fillBoat()	{	// position de départ
-		this.emplacements[0] = tete;
-		for (int i = 1; i < taille; i++)	{
-			this.emplacements[i] = new Position(this.emplacements[i-1]);
-														// evite de pointer sur la m position
-			if (this.orientation == Orientation.Horizontal)	{
-				this.emplacements[i].avanceeHorizontale();
-			}
-			if (this.orientation == Orientation.Vertical)	{
-				this.emplacements[i].avanceeVerticale();
-			}
-			if (this.orientation == Orientation.AntiDiagonal)	{
-				this.emplacements[i].avanceeAntiDiagonale();
-			}
-			if (this.orientation == Orientation.Diagonal)	{
-				this.emplacements[i].avanceeDiagonale();
-			}
+	public Position getTete()	{
+		return this.tete;
+	}
+
+	public void setAvancee(int index, Orientation o)	{
+		if (o == Orientation.Horizontal)	{
+			this.emplacements[index].avanceeHorizontale();
+		}
+		if (o == Orientation.Vertical)	{
+			this.emplacements[index].avanceeVerticale();
+		}
+		if (o == Orientation.AntiDiagonal)	{
+			this.emplacements[index].avanceeAntiDiagonale();
+		}
+		if (o == Orientation.Diagonal)	{
+			this.emplacements[index].avanceeDiagonale();
 		}
 	}
 
-	public void affBoat() {
-    System.out.println(this.getOrientation());
-    for (int i = 0; i < this.getTaille(); i++)  {
-      System.out.println(this.getEmplacements()[i]);
-    }
-  }
-
-	public void randomizePosition()	{
-		double yAleatoire =  Math.random() * Globals.getLongueurChampMax() + 1;
-		double xAleatoire =  Math.random() * Globals.getLongueurChampMax() + 1;
-		this.tete = new Position((int) xAleatoire, (int) yAleatoire);
+	public void setTete(Position pos)	{
+		this.tete = pos;
 	}
 
-	public Orientation getOrientation()	{
-		return this.orientation;
+	public void setOrientation(Orientation o)	{
+		this.orientation = o;
 	}
 
-	public void setRandomOrientation()	{
-		double nbAleatoire =  Math.random() * 4 + 1;
-		switch ((int) nbAleatoire)	{
-			case 1:
-			this.orientation = Orientation.Horizontal;
-			break;
-			case 2:
-			this.orientation = Orientation.Vertical;
-			break;
-			case 3:
-			this.orientation = Orientation.AntiDiagonal;
-			break;
-			case 4:
-			this.orientation = Orientation.Diagonal;
-			break;
-		}
-	}
-
-	public boolean isInside()	{
-		boolean inside = true;
-		for (int i = 0; i < this.taille; i++)	{
-			if ((this.emplacements[i].getX() > Globals.getLongueurChampMax() ||
-			 							this.emplacements[i].getX() < 1) ||
-										(this.emplacements[i].getY() > Globals.getLongueurChampMax() ||
-										 							this.emplacements[i].getY() < 1))	{
-				inside = false;
-			}
-		}
-		return inside;
-	}
-
-	public boolean touchesA(Bateau[] bateaux)	{
-		for (int i = 0; i < bateaux.length; i++) {
-			if (this != bateaux[i])	{ //pas de equals ici car on compare les adresses
-				if (this.touches(bateaux[i])	{
-					System.out.println("boat is hit !");
-				}
-			}
-		}
-	}
-
-	public boolean touches(Bateau bateau)	{
-		for (int i = 0; i < this.emplacements.length; i++) {
-			for (int j = 0; bateau.getEmplacements().length; j++)	{
-				if (this.emplacements[i].equals(bateau.getEmplacements()[i])	{
-					System.out.println("le boat is hit !");
-				}
-			}
-		}
+	public void setEmplacements(int index, Position pos)	{
+		this.emplacements[index] = pos;
 	}
 
 	// public void avancer()	{
