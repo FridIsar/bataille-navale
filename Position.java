@@ -58,6 +58,24 @@ public class Position	{
 		this.y-=1;
 	}
 
+	public void reculeeHorizontale()	{
+		this.y-=1;
+	}
+
+	public void reculeeVerticale()	{
+		this.x-=1;
+	}
+
+	public void reculeeDiagonale()	{
+		this.x-=1;
+		this.y-=1;
+	}
+
+	public void reculeeAntiDiagonale()	{
+		this.x-=1;
+		this.y+=1;
+	}
+
 	public String toString()	{
 		String s = "(" + this.x + "; " + this.y + ")";
 		return s;

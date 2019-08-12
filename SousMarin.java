@@ -48,6 +48,21 @@ public class SousMarin extends Bateau	{
 		}
 	}
 
+	public void setReculee(int index, Orientation o)	{
+		if (o == Orientation.Horizontal)	{
+			this.emplacements[index].reculeeHorizontale();
+		}
+		if (o == Orientation.Vertical)	{
+			this.emplacements[index].reculeeVerticale();
+		}
+		if (o == Orientation.AntiDiagonal)	{
+			this.emplacements[index].reculeeAntiDiagonale();
+		}
+		if (o == Orientation.Diagonal)	{
+			this.emplacements[index].reculeeDiagonale();
+		}
+	}
+
 	public void setTete(Position pos)	{
 		this.tete = pos;
 	}
@@ -60,7 +75,9 @@ public class SousMarin extends Bateau	{
 		this.emplacements[index] = pos;
 	}
 
-	// public void avancer()	{
-	// 	this.x += 1;
-	// }
+	public void affBoat()	{
+		for (int i = 0; i < this.emplacements.length; i++) {
+			System.out.println(this.emplacements[i]);
+		}
+	}
 }

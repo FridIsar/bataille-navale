@@ -38,6 +38,7 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 	public abstract void setOrientation(Orientation o);
 	public abstract void setEmplacements(int index, Position pos);
 	public abstract void setAvancee(int index, Orientation o);
+	public abstract void setReculee(int index, Orientation o);
 
 	public void fillBoat()	{	// position de départ
 		this.setEmplacements(0, this.getTete());
@@ -111,5 +112,17 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 			}
 		}
 		return (isHit);
+	}
+
+	public void avancer()	{
+		for (int i = 0; i < this.getEmplacements().length; i++) {
+			this.setAvancee(i, this.getOrientation());
+		}
+	}
+
+	public void reculer()	{
+		for (int i = 0; i < this.getEmplacements().length; i++) {
+			this.setReculee(i, this.getOrientation());
+		}
 	}
 }
