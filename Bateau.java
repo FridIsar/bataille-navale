@@ -9,6 +9,8 @@
 // 	will work and then allow the programmers to
 // 	fill the implementation in the derived classes.
 
+import java.util.Scanner;
+
 public abstract class Bateau	{ //rendre abstraite + add methods
 
 	public static int resistance;
@@ -124,5 +126,60 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 		for (int i = 0; i < this.getEmplacements().length; i++) {
 			this.setReculee(i, this.getOrientation());
 		}
+	}
+
+	public void tirer(ChampBataille cb)	{
+
+		System.out.println("Dans quelle direction ?\n1. Nord\n2. Nord-Est\n3. Est\n4. Sud-Est\n5. Sud\n6. Sud-Ouest\n7. Ouest\n8. Nord-Ouest");
+		Scanner sc = new Scanner(System.in);
+		Position pos = this.getEmplacements()[0];
+		int choix = sc.nextInt();
+		int[][] t = cb.getT();
+		int id = 0;
+		System.out.println("pos initiale "+pos);
+		int j = pos.getY();
+		int i = pos.getX();
+		boolean touche = false;
+		while (i < t.length && j < t[i].length) { //avancee diagonale
+			id = t[i][j];
+			System.out.println((i+1)+";"+(j+1));
+			switch (id)  {
+				case 0:
+					System.out.println("rien de touché commandant !");
+					break;
+				case 1:
+					System.out.println("F1 touché");
+					break;
+				case 2:
+					System.out.println("F2 touché");
+					break;
+				case 3:
+					System.out.println("C1 touché");
+					break;
+				case 4:
+					System.out.println("C2 touché");
+					break;
+				case 5:
+					System.out.println("S1 touché");
+					break;
+				case 6:
+					System.out.println("S2 touché");
+					break;
+			}
+			if (id!=0)	{
+				break;
+			}
+			i++;
+			j++;
+		}
+		System.out.println("fin");
+		// switch (choix) {
+		// 	case 1:
+		//
+		// 		break;
+		// 	case 5:
+		//
+		// 		break;
+		// }
 	}
 }

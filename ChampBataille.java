@@ -25,7 +25,14 @@ public class ChampBataille	{
     }
     s+="\n";
     for (int i = 0; i < t.length; i++)	{
-      s+="| "+(char) (i+65)+"|";
+      s+="|";
+      if (i+1 < 10)	{
+        s+=" "+(i+1);
+      }
+      else	{
+        s+=(i+1);
+      }
+      s+="|";
       for (int j = 0; j < t[i].length; j++) {
         int type = t[i][j];
         switch (type)  {
@@ -56,6 +63,10 @@ public class ChampBataille	{
       s+="\n";
     }
     return s;
+  }
+
+  public int[][] getT() {
+    return this.t;
   }
 
   public void setBoat(int x, int y)	{

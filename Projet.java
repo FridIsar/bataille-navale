@@ -62,7 +62,7 @@ public class Projet	{
         game = false;
       }
       else {
-        System.out.println("1. Pour avancer\n2. Pour reculer");
+        System.out.println("1. Pour avancer\n2. Pour reculer\n3. Pour tirer");
         int choix = sc.nextInt();
 
         if (choix == 1) {
@@ -87,6 +87,10 @@ public class Projet	{
             System.out.println("Bateau touché ! vous perdez un point de résistance et retournez à la position initiale");
             bateaux[choixBateau-1].avancer();
           }
+        }
+
+        if (choix == 3) {
+          bateaux[choixBateau-1].tirer(cb);
         }
         cb.refresh(bateaux);
         System.out.println(cb);
