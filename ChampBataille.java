@@ -14,7 +14,7 @@ public class ChampBataille	{
   public String toString() {
     String s = new String();
     s+="|  |";
-    for (int i = 1; i < t.length+1; i++)	{
+    for (int i = 0; i < t.length; i++)	{
       if (i < 10)	{
         s+=" "+i;
       }
@@ -26,11 +26,11 @@ public class ChampBataille	{
     s+="\n";
     for (int i = 0; i < t.length; i++)	{
       s+="|";
-      if (i+1 < 10)	{
-        s+=" "+(i+1);
+      if (i < 10)	{
+        s+=" "+i;
       }
       else	{
-        s+=(i+1);
+        s+=i;
       }
       s+="|";
       for (int j = 0; j < t[i].length; j++) {
@@ -90,7 +90,7 @@ public class ChampBataille	{
 		for (int i = 0; i < bateaux.length; i++)	{
       Position[] emplacements = bateaux[i].getEmplacements();
 			for (int j = 0; j < bateaux[i].getTaille(); j++)	{
-				this.t[emplacements[j].getX()-1][emplacements[j].getY()-1] = i+1;
+				this.t[emplacements[j].getX()][emplacements[j].getY()] = i+1;
 			}
 		}
   }

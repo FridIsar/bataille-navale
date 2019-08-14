@@ -2,7 +2,8 @@ import java.util.Scanner;
 
 public class Projet	{
 // FAIRE AVANCER RECULER
-// FAIRE TIRER ET RESISTANCE
+// FAIRE TIRER ET RESISTANCE (mine pportée 0 !)
+// AJOUTER LA 3E DIMENSION
 // le prof n'aime pas les returns dans boucle (à éviter)
 
   public static void main(String[] args)	{
@@ -62,7 +63,7 @@ public class Projet	{
         game = false;
       }
       else {
-        System.out.println("1. Pour avancer\n2. Pour reculer\n3. Pour tirer");
+        System.out.println("1. Pour avancer\n2. Pour reculer\n3. Pour tirer\n4. Pour position de la tête");
         int choix = sc.nextInt();
 
         if (choix == 1) {
@@ -91,6 +92,10 @@ public class Projet	{
 
         if (choix == 3) {
           bateaux[choixBateau-1].tirer(cb);
+        }
+
+        if (choix == 4) {
+          System.out.println(bateaux[choixBateau-1].getEmplacements()[0]);
         }
         cb.refresh(bateaux);
         System.out.println(cb);

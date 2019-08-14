@@ -54,7 +54,10 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 	public void randomizePosition()	{
 		double yAleatoire =  Math.random() * Globals.getLongueurChampMax() + 1;
 		double xAleatoire =  Math.random() * Globals.getLongueurChampMax() + 1;
-		this.setTete(new Position((int) xAleatoire, (int) yAleatoire));
+		int x = (int) xAleatoire;
+		int y = (int) yAleatoire;
+		this.setTete(new Position((x-1),(y-1)));
+		System.out.println((x-1) +"and"+ (y-1));
 	}
 
 
@@ -80,10 +83,10 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 		boolean inside = true;
 		for (int i = 0; i < this.getTaille(); i++)	{
 			System.out.println(this.getEmplacements()[1]); //at the end getX a changer
-			if ((this.getEmplacements()[i].getX() > Globals.getLongueurChampMax() ||
-			 			this.getEmplacements()[i].getX() < 1) ||
-					(this.getEmplacements()[i].getY() > Globals.getLongueurChampMax() ||
-						this.getEmplacements()[i].getY() < 1))	{
+			if ((this.getEmplacements()[i].getX() > Globals.getLongueurChampMax()-1 ||
+			 			this.getEmplacements()[i].getX() < 0) ||
+					(this.getEmplacements()[i].getY() > Globals.getLongueurChampMax()-1 ||
+						this.getEmplacements()[i].getY() < 0))	{
 				inside = false;
 			}
 		}
@@ -136,50 +139,128 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 		int choix = sc.nextInt();
 		int[][] t = cb.getT();
 		int id = 0;
-		System.out.println("pos initiale "+pos);
 		int j = pos.getY();
 		int i = pos.getX();
-		boolean touche = false;
-		while (i < t.length && j < t[i].length) { //avancee diagonale
-			id = t[i][j];
-			System.out.println((i+1)+";"+(j+1));
-			switch (id)  {
-				case 0:
-					System.out.println("rien de touché commandant !");
-					break;
-				case 1:
-					System.out.println("F1 touché");
-					break;
-				case 2:
-					System.out.println("F2 touché");
-					break;
-				case 3:
-					System.out.println("C1 touché");
-					break;
-				case 4:
-					System.out.println("C2 touché");
-					break;
-				case 5:
-					System.out.println("S1 touché");
-					break;
-				case 6:
-					System.out.println("S2 touché");
-					break;
-			}
-			if (id!=0)	{
+		System.out.println("pos initiale "+pos);
+		int max = t[i].length;
+
+		switch (choix) {
+			case 1:
+				while (i > 0) { //avancee N
+					i--;
+					id = t[i][j];
+					System.out.println((i)+";"+(j));
+					if (id!=0)	{
+						break;
+					}
+				}
 				break;
-			}
-			i++;
-			j++;
+
+			case 2:
+				while (i > 0 && j < max) { //avancee NE
+					i--;
+					j++;
+					id = t[i][j];
+					System.out.println((i)+";"+(j));
+					if (id!=0)	{
+						break;
+					}
+				}
+				break;
+
+			case 3:
+				while (j < max) { //avancee E
+					j++;
+					id = t[i][j];
+					System.out.println((i)+";"+(j));
+					if (id!=0)	{
+						break;
+					}
+				}
+				break;
+
+			case 4:
+				while (i < t.length && j < max) { //avancee SE
+					i++;
+					j++;
+					id = t[i][j];
+					System.out.println((i)+";"+(j));
+					if (id!=0)	{
+						break;
+					}
+				}
+				break;
+
+			case 5:
+				while (i < t.length) { //avancee S
+					i++;
+					id = t[i][j];
+					System.out.println((i)+";"+(j));
+					if (id!=0)	{
+						break;
+					}
+				}
+				break;
+
+			case 6:
+				while (i < t.length && j > 0) { //avancee SO
+					i++;
+					j--;
+					id = t[i][j];
+					System.out.println((i)+";"+(j));
+					if (id!=0)	{
+						break;
+					}
+				}
+				break;
+
+			case 7:
+				while (j > 0) { //avancee O
+					j--;
+					id = t[i][j];
+					System.out.println((i)+";"+(j));
+					if (id!=0)	{
+						break;
+					}
+				}
+				break;
+
+			case 8:
+				while (i > 0 && j > 0) { //avancee NO
+					i--;
+					j--;
+					id = t[i][j];
+					System.out.println((i)+";"+(j));
+					if (id!=0)	{
+						break;
+					}
+				}
+				break;
 		}
-		System.out.println("fin");
-		// switch (choix) {
-		// 	case 1:
-		//
-		// 		break;
-		// 	case 5:
-		//
-		// 		break;
-		// }
+
+		switch (id)  {
+			case 0:
+			System.out.println("rien de touché commandant !");
+			break;
+			case 1:
+			System.out.println("F1 touché");
+			break;
+			case 2:
+			System.out.println("F2 touché");
+			break;
+			case 3:
+			System.out.println("C1 touché");
+			break;
+			case 4:
+			System.out.println("C2 touché");
+			break;
+			case 5:
+			System.out.println("S1 touché");
+			break;
+			case 6:
+			System.out.println("S2 touché");
+			break;
+		}
+		System.out.println("aux coordonnees "+i+";"+j);
 	}
 }
