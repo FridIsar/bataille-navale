@@ -13,9 +13,10 @@ import java.util.Scanner;
 
 public abstract class Bateau	{ //rendre abstraite + add methods
 
-	public static int resistance;
-	public static int munitions;
+	private int resistance;
+	private int munitions;
 	public static int taille;
+	public static int degats;
 	public Orientation orientation;
 	//attaque ?
 
@@ -32,10 +33,14 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 	//public abstract void tirer();
 	public abstract int getTaille();
 	public abstract int getResistance();
+	public abstract int getMunitions();
+	public abstract int getDegats();
 	public abstract Position[] getEmplacements();
 	public abstract Orientation getOrientation();
 	public abstract Position getTete();
 
+	public abstract void setMunition(int nb);
+	public abstract void setResistance(int nb);
 	public abstract void setTete(Position pos);
 	public abstract void setOrientation(Orientation o);
 	public abstract void setEmplacements(int index, Position pos);
@@ -131,7 +136,7 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 		}
 	}
 
-	public void tirer(ChampBataille cb)	{
+	public int tirer(ChampBataille cb)	{
 
 		System.out.println("Dans quelle direction ?\n1. Nord\n2. Nord-Est\n3. Est\n4. Sud-Est\n5. Sud\n6. Sud-Ouest\n7. Ouest\n8. Nord-Ouest");
 		Scanner sc = new Scanner(System.in);
@@ -142,7 +147,7 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 		int j = pos.getY();
 		int i = pos.getX();
 		System.out.println("pos initiale "+pos);
-		int max = t[i].length;
+		int max = t[i].length-1;
 
 		switch (choix) {
 			case 1:
@@ -262,5 +267,30 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 			break;
 		}
 		System.out.println("aux coordonnees "+i+";"+j);
+		return id;
+	}
+
+	public void refreshResistance(int dmg)	{
+		this.setResistance(this.getResistance() - dmg);
+	}
+
+	public void useMunition()	{
+		this.setMunition(this.getMunitions() - 1);
+	}
+
+	public boolean estCoule()	{
+		boolean coule = false;
+		if (this.getResistance() <= 0)	{
+			coule = true;
+		}
+		return coule;
+	}
+
+	public boolean aEncoreMunitions()	{
+		boolean munRestante = true;
+		if (this.getMunitions() <= 0)	{
+			munRestante = false;
+		}
+		return munRestante;
 	}
 }

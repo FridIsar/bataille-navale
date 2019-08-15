@@ -3,9 +3,13 @@ import java.util.Scanner;
 public class Projet	{
 // FAIRE AVANCER RECULER
 // FAIRE TIRER ET RESISTANCE (mine pportée 0 !)
+// Faire que le main soit propre a la fin
+// Faire une classe EnsembleBateaux
 // AJOUTER LA 3E DIMENSION
-// le prof n'aime pas les returns dans boucle (à éviter)
+// selon https://stackoverflow.com/questions/45244647/how-can-i-use-while-loops-in-a-text-based-game-java
+// ^ eviter les boucles dans le main, plutot releger a chaque classe et faire des if
 
+// le prof n'aime pas les returns dans boucle (à éviter)
   public static void main(String[] args)	{
 
     ChampBataille cb = new ChampBataille(Globals.getLongueurChampMax());
@@ -56,54 +60,83 @@ public class Projet	{
     boolean game = true;
 
     while(game) {
-      System.out.println("0. Stop\n1. F1\n2. F2\n3. C1\n4. C2");
-      int choixBateau = sc.nextInt();
-      if (choixBateau < 1 || choixBateau > 4) {
-        System.out.println("Game over!");
-        game = false;
-      }
-      else {
-        System.out.println("1. Pour avancer\n2. Pour reculer\n3. Pour tirer\n4. Pour position de la tête");
-        int choix = sc.nextInt();
+      System.out.println("0. Stop\n1. F1 (HP : "+bateaux[0].getResistance()+", AMMO : "+bateaux[0].getMunitions()+")\n2. F2 (HP : "+bateaux[1].getResistance()+", AMMO : "+bateaux[1].getMunitions()+")\n3. C1\n4. C2");
 
-        if (choix == 1) {
-          bateaux[choixBateau-1].avancer();
-          if (!bateaux[choixBateau-1].isInside()) {
-            System.out.println("Vous ne pouvez aller dehors ! retour à la position initiale");
-            bateaux[choixBateau-1].reculer();
-          }
-          if (bateaux[choixBateau-1].touchesA(bateaux)) {
-            System.out.println("Bateau touché ! vous perdez un point de résistance et retournez à la position initiale");
-            bateaux[choixBateau-1].reculer();
-          }
-        }
+			int bateauxSansMun = 0;
+			int bateauxCoules = 0;
+			for (int i = 0; i < bateaux.length; i++) {
+				if (!bateaux[i].aEncoreMunitions())	{
+					bateauxSansMun++;
+				}
+				if (bateaux[i].estCoule())	{
+					bateauxCoules++;
+				}
+			}
+			if (bateauxSansMun == bateaux.length || bateauxCoules == bateaux.length) {
+				System.out.println("Game over !");
+				game = false;
+			}
 
-        if (choix == 2) {
-          bateaux[choixBateau-1].reculer();
-          if (!bateaux[choixBateau-1].isInside()) {
-            System.out.println("Vous ne pouvez aller dehors ! retour à la position initiale");
-            bateaux[choixBateau-1].avancer();
-          }
-          if (bateaux[choixBateau-1].touchesA(bateaux)) {
-            System.out.println("Bateau touché ! vous perdez un point de résistance et retournez à la position initiale");
-            bateaux[choixBateau-1].avancer();
-          }
-        }
+			else {
+				int choixBateau = sc.nextInt();
+				if (choixBateau < 1 || choixBateau > 4) {
+					System.out.println("Veuillez choisir un nombre entre 1 et 4 inclus !");
+				}
 
-        if (choix == 3) {
-          bateaux[choixBateau-1].tirer(cb);
-        }
+				else	{
+					if (bateaux[choixBateau-1].estCoule()) {
+						System.out.println("Vous ne pouvez choisir un bateau mort !");
+					}
+					else {
+						System.out.println("1. Pour avancer\n2. Pour reculer\n3. Pour tirer\n4. Pour position de la tête");
+						int choix = sc.nextInt();
 
-        if (choix == 4) {
-          System.out.println(bateaux[choixBateau-1].getEmplacements()[0]);
-        }
-        cb.refresh(bateaux);
-        System.out.println(cb);
-      }
-  }
-    // for (int i = 0; i < bateaux.length; i++)	{
-    //   // bateaux[i].setRandomOrientation();
-		// 	System.out.println(bateaux[i].getOrientation());
-		// }
+						if (choix == 1) {
+							bateaux[choixBateau-1].avancer();
+							if (!bateaux[choixBateau-1].isInside()) {
+								System.out.println("Vous ne pouvez aller dehors ! retour à la position initiale");
+								bateaux[choixBateau-1].reculer();
+							}
+							if (bateaux[choixBateau-1].touchesA(bateaux)) {
+								System.out.println("Bateau touché ! vous perdez un point de résistance et retournez à la position initiale");
+								bateaux[choixBateau-1].reculer();
+							}
+						}
+
+						if (choix == 2) {
+							bateaux[choixBateau-1].reculer();
+							if (!bateaux[choixBateau-1].isInside()) {
+								System.out.println("Vous ne pouvez aller dehors ! retour à la position initiale");
+								bateaux[choixBateau-1].avancer();
+							}
+							if (bateaux[choixBateau-1].touchesA(bateaux)) {
+								System.out.println("Bateau touché ! vous perdez un point de résistance et retournez à la position initiale");
+								bateaux[choixBateau-1].avancer();
+							}
+						}
+
+						if (choix == 3) {
+							if (bateaux[choixBateau-1].aEncoreMunitions())	{
+								bateaux[choixBateau-1].useMunition();
+								int batTouche = bateaux[choixBateau-1].tirer(cb);
+								if (batTouche > 0)	{
+									bateaux[batTouche-1].refreshResistance(bateaux[choixBateau-1].getDegats());
+									System.out.println("prend "+bateaux[choixBateau-1].getDegats()+" degats !");
+								}
+							}
+							else	{
+								System.out.println("no ammo left !");
+							}
+						}
+
+						if (choix == 4) {
+							System.out.println(bateaux[choixBateau-1].getEmplacements()[0]);
+						}
+						cb.refresh(bateaux);
+						System.out.println(cb);
+					}
+				}
+			}
+		}
   }
 }

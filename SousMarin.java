@@ -1,6 +1,7 @@
 public class SousMarin extends Bateau	{
-	public static final int resistance = 4;
-	public static final int munitions = 10;
+	private int resistance = 4;
+	private int munitions = 2;
+	public static final int degats = 2;
 	public static final int taille = 2;
 	public Orientation orientation;
 	//attaque ?
@@ -31,6 +32,22 @@ public class SousMarin extends Bateau	{
 
 	public Position getTete()	{
 		return this.tete;
+	}
+
+	public int getMunitions()	{
+		return this.munitions;
+	}
+
+	public int getDegats()	{
+		return this.degats;
+	}
+
+	public void setMunition(int nb)	{
+		this.munitions = nb;
+	}
+
+	public void setResistance(int nb)	{
+		this.resistance = nb;
 	}
 
 	public void setAvancee(int index, Orientation o)	{
