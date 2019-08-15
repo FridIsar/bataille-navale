@@ -24,7 +24,7 @@ public class Projet	{
     SousMarin s3 = new SousMarin();
     SousMarin s4 = new SousMarin();
 		// SousMarin s2 = new SousMarin(3,6);
-		// Bateau[] bateaux = {f1, f2, c1, c2, s1, s2};
+		// Bateau[] bateaux = {f1, f2, c1, c2, s1, s2};a
     Bateau[] bateaux = {s1, s2, s3, s4};
 
 		boolean isvalid = false;
