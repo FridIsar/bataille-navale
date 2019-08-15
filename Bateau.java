@@ -185,7 +185,7 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 				break;
 
 			case 4:
-				while (i < t.length && j < max) { //avancee SE
+				while (i < t.length-1 && j < max) { //avancee SE
 					i++;
 					j++;
 					id = t[i][j];
@@ -197,7 +197,7 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 				break;
 
 			case 5:
-				while (i < t.length) { //avancee S
+				while (i < t.length-1) { //avancee S
 					i++;
 					id = t[i][j];
 					System.out.println((i)+";"+(j));
@@ -208,7 +208,7 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 				break;
 
 			case 6:
-				while (i < t.length && j > 0) { //avancee SO
+				while (i < t.length-1 && j > 0) { //avancee SO
 					i++;
 					j--;
 					id = t[i][j];
