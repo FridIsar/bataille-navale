@@ -88,10 +88,7 @@ public class ChampBataille	{
 		// méthode isOutside() à faire
     reset();
 		for (int i = 0; i < bateaux.length; i++)	{
-			if (bateaux[i].estCoule())	{
-				i++;
-			}
-			else	{
+			if (!bateaux[i].estCoule())	{
 	      Position[] emplacements = bateaux[i].getEmplacements();
 				for (int j = 0; j < bateaux[i].getTaille(); j++)	{
 					this.t[emplacements[j].getX()][emplacements[j].getY()] = i+1;

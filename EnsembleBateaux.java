@@ -4,11 +4,14 @@ public class EnsembleBateaux	{
 
 
 	private Bateau[] ensemble = {
+																	new Fregate(),
+																	new Fregate(),
+																	new Croiseur(),
+																	new Croiseur(),
 																	new SousMarin(),
-																	new SousMarin(),
-																	new SousMarin(),
-																	new SousMarin(),
+																	new SousMarin()
 															};
+
 	public EnsembleBateaux()	{
 	}
 
@@ -17,7 +20,13 @@ public class EnsembleBateaux	{
 	}
 
 	public String getInfosBateaux()	{
-		return "0. F1 (HP : "+ensemble[0].getResistance()+", AMMO : "+ensemble[0].getMunitions()+")\n1. F2 (HP : "+ensemble[1].getResistance()+", AMMO : "+ensemble[1].getMunitions()+")\n2. C1\n3. C2\n4. Stop";
+		String infos = "";
+		String[] noms = {"F1", "F2", "C1", "C2", "S1", "S2"};
+		for (int i = 0; i < ensemble.length; i++) {
+			infos+=i+". "+noms[i]+" (VIE : "+ensemble[i].getResistance()+" MUNITIONS : "+ensemble[i].getMunitions()+" "+ensemble[i].getTaille()+")\n";
+		}
+
+		return infos;
 	}
 
 	public void initPlacements()	{
@@ -46,34 +55,19 @@ public class EnsembleBateaux	{
 		}
 	}
 
-	public boolean sontCoules()	{
-		boolean sontTousCoules = false;
-		int bateauxCoules = 0;
+	public boolean noMunOrCoules()	{
+		boolean sontTousMorts = false;
+		int bateauxMorts = 0;
 		for (int i = 0; i < ensemble.length; i++) {
-			if (ensemble[i].estCoule())	{
-				bateauxCoules++;
+			if (ensemble[i].estCoule() || !ensemble[i].aEncoreMunitions())	{
+				bateauxMorts++;
 			}
 		}
-		if (bateauxCoules == ensemble.length) {
-			sontTousCoules = true;
+		if (bateauxMorts == ensemble.length) {
+			sontTousMorts = true;
 		}
-		return sontTousCoules;
+		return sontTousMorts;
 	}
-
-	public boolean sontSansMun()	{
-		boolean sontTousSansMun = false;
-		int bateauxSansMun = 0;
-		for (int i = 0; i < ensemble.length; i++) {
-			if (!ensemble[i].aEncoreMunitions())	{
-				bateauxSansMun++;
-			}
-		}
-		if (bateauxSansMun == ensemble.length) {
-			sontTousSansMun = true;
-		}
-		return sontTousSansMun;
-	}
-
 
 	public int choisirBateau()	{
 		Scanner sc = new Scanner(System.in);
@@ -81,7 +75,7 @@ public class EnsembleBateaux	{
 		int choix = -1;
 		while (!bonchoix)	{
 			choix = sc.nextInt();
-			if (choix < 0 || choix > 3) {
+			if (choix < 0 || choix > 5) {
 				System.out.println("Veuillez choisir un nombre entre 0 et 3 inclus !");
 			}
 			else	{
@@ -112,6 +106,7 @@ public class EnsembleBateaux	{
 			}
 			if (ensemble[bateauChoisi].touchesA(ensemble)) {
 				System.out.println("Bateau touché ! vous perdez un point de résistance et retournez à la position initiale");
+				ensemble[bateauChoisi].refreshResistance(1);
 				ensemble[bateauChoisi].reculer();
 			}
 		}
@@ -124,6 +119,7 @@ public class EnsembleBateaux	{
 			}
 			if (ensemble[bateauChoisi].touchesA(ensemble)) {
 				System.out.println("Bateau touché ! vous perdez un point de résistance et retournez à la position initiale");
+				ensemble[bateauChoisi].refreshResistance(1);
 				ensemble[bateauChoisi].avancer();
 			}
 		}

@@ -102,9 +102,11 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 		boolean isHit = false;
 		for (int i = 0; i < bateaux.length; i++) {
 			if (this != bateaux[i])	{ //pas de equals ici car on compare les adresses
-				if (this.touches(bateaux[i]))	{
-					System.out.println("le boat is hit !");
-					isHit = true;
+				if (!bateaux[i].estCoule())	{
+					if (this.touches(bateaux[i]))	{
+						System.out.println("le boat is hit !");
+						isHit = true;
+					}
 				}
 			}
 		}
