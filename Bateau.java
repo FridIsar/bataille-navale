@@ -34,9 +34,11 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 	public abstract int getTaille();
 	public abstract int getResistance();
 	public abstract int getMunitions();
-	public abstract int getDegats();
+	public abstract int getProfondeur();
 	public abstract Position[] getEmplacements();
 	public abstract Orientation getOrientation();
+	public abstract int getDegats();
+	public abstract Munition getMunitionCourante();
 	public abstract Position getTete();
 
 	public abstract void setMunition(int nb);
@@ -46,6 +48,8 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 	public abstract void setEmplacements(int index, Position pos);
 	public abstract void setAvancee(int index, Orientation o);
 	public abstract void setReculee(int index, Orientation o);
+
+	public abstract void initMunitions();
 
 	public void fillBoat()	{	// position de départ
 		this.setEmplacements(0, this.getTete());
@@ -61,8 +65,13 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 		double xAleatoire =  Math.random() * Globals.getLongueurChampMax() + 1;
 		int x = (int) xAleatoire;
 		int y = (int) yAleatoire;
-		this.setTete(new Position((x-1),(y-1)));
-		System.out.println((x-1) +"and"+ (y-1));
+		int z = 1; //si à la surface
+		if (this instanceof SousMarin)	{
+			double zAleatoire =  Math.random() * Globals.getProfondeurChampMax() + 1;
+			z = (int) zAleatoire;
+		}
+		this.setTete(new Position((x-1),(y-1),(z-1)));
+		//System.out.println((x-1) +"and"+ (y-1));
 	}
 
 
@@ -87,11 +96,7 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 	public boolean isInside()	{
 		boolean inside = true;
 		for (int i = 0; i < this.getTaille(); i++)	{
-			System.out.println(this.getEmplacements()[1]); //at the end getX a changer
-			if ((this.getEmplacements()[i].getX() > Globals.getLongueurChampMax()-1 ||
-			 			this.getEmplacements()[i].getX() < 0) ||
-					(this.getEmplacements()[i].getY() > Globals.getLongueurChampMax()-1 ||
-						this.getEmplacements()[i].getY() < 0))	{
+			if (!this.getEmplacements()[i].isInside())	{
 				inside = false;
 			}
 		}
@@ -104,7 +109,7 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 			if (this != bateaux[i])	{ //pas de equals ici car on compare les adresses
 				if (!bateaux[i].estCoule())	{
 					if (this.touches(bateaux[i]))	{
-						System.out.println("le boat is hit !");
+						//System.out.println("le boat is hit !");
 						isHit = true;
 					}
 				}
@@ -118,7 +123,7 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 		for (int i = 0; i < this.getEmplacements().length; i++) {
 			for (int j = 0; j < bateau.getEmplacements().length; j++)	{
 				if (this.getEmplacements()[i].equals(bateau.getEmplacements()[j]))	{
-					System.out.println("le position is hit !");
+					//System.out.println("le position is hit !");
 					isHit = true;
 				}
 			}
@@ -144,19 +149,34 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 		Scanner sc = new Scanner(System.in);
 		Position pos = this.getEmplacements()[0];
 		int choix = sc.nextInt();
-		int[][] t = cb.getT();
+		int[][][] t = cb.getT();
+		int choixProfondeur = 0;
+
+		if (this instanceof SousMarin)	{
+			while (choixProfondeur < 1 || choixProfondeur > 2)	{
+				if (this.getProfondeur() > 0)	{
+					System.out.println("1. Vers le haut ?");
+				}
+				if (this.getProfondeur() < Globals.getProfondeurChampMax()-1)	{
+					System.out.println("2. Vers le bas ?");
+				}
+				choixProfondeur = sc.nextInt();
+			}
+		}
+
 		int id = 0;
 		int j = pos.getY();
 		int i = pos.getX();
-		System.out.println("pos initiale "+pos);
+		int z = pos.getZ();
+		//System.out.println("pos initiale "+pos);
 		int max = t[i].length-1;
 
 		switch (choix) {
 			case 1:
 				while (i > 0) { //avancee N
 					i--;
-					id = t[i][j];
-					System.out.println((i)+";"+(j));
+					id = t[i][j][z];
+					//System.out.println((i)+";"+(j));
 					if (id!=0)	{
 						break;
 					}
@@ -167,8 +187,8 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 				while (i > 0 && j < max) { //avancee NE
 					i--;
 					j++;
-					id = t[i][j];
-					System.out.println((i)+";"+(j));
+					id = t[i][j][z];
+					//System.out.println((i)+";"+(j));
 					if (id!=0)	{
 						break;
 					}
@@ -178,8 +198,8 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 			case 3:
 				while (j < max) { //avancee E
 					j++;
-					id = t[i][j];
-					System.out.println((i)+";"+(j));
+					id = t[i][j][z];
+				//	System.out.println((i)+";"+(j));
 					if (id!=0)	{
 						break;
 					}
@@ -190,8 +210,8 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 				while (i < t.length-1 && j < max) { //avancee SE
 					i++;
 					j++;
-					id = t[i][j];
-					System.out.println((i)+";"+(j));
+					id = t[i][j][z];
+		//			System.out.println((i)+";"+(j));
 					if (id!=0)	{
 						break;
 					}
@@ -201,8 +221,8 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 			case 5:
 				while (i < t.length-1) { //avancee S
 					i++;
-					id = t[i][j];
-					System.out.println((i)+";"+(j));
+					id = t[i][j][z];
+		//			System.out.println((i)+";"+(j));
 					if (id!=0)	{
 						break;
 					}
@@ -213,8 +233,8 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 				while (i < t.length-1 && j > 0) { //avancee SO
 					i++;
 					j--;
-					id = t[i][j];
-					System.out.println((i)+";"+(j));
+					id = t[i][j][z];
+		//			System.out.println((i)+";"+(j));
 					if (id!=0)	{
 						break;
 					}
@@ -224,8 +244,8 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 			case 7:
 				while (j > 0) { //avancee O
 					j--;
-					id = t[i][j];
-					System.out.println((i)+";"+(j));
+					id = t[i][j][z];
+			//		System.out.println((i)+";"+(j));
 					if (id!=0)	{
 						break;
 					}
@@ -236,13 +256,31 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 				while (i > 0 && j > 0) { //avancee NO
 					i--;
 					j--;
-					id = t[i][j];
-					System.out.println((i)+";"+(j));
-					if (id!=0)	{
+					id = t[i][j][z];
+			//		System.out.println((i)+";"+(j));
+					if (id!=0)	{ //CHANGER LA CONDITION DU WHILE (JUSTE)
 						break;
 					}
 				}
 				break;
+		}
+		System.out.println(this.getTete()+" jusquaux coordonnees "+i+";"+j+";"+z);
+		if (this instanceof SousMarin && choixProfondeur != 0) {
+			if (id == 0)	{
+				if (choixProfondeur == 1)	{
+					while ((z > z-this.getMunitionCourante().getProfondeur() && z > 0) && id == 0) {
+						z--;
+						id = t[i][j][z];
+					}
+				}
+				if (choixProfondeur == 2)	{
+					System.out.println(" "+this.getMunitionCourante().getProfondeur());
+					while ((z < this.getMunitionCourante().getProfondeur() && z < Globals.getProfondeurChampMax()-1) && id == 0) {
+						z++;
+						id = t[i][j][z];
+					}
+				}
+			}
 		}
 
 		switch (id)  {
@@ -268,7 +306,7 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 			System.out.println("S2 touché");
 			break;
 		}
-		System.out.println("aux coordonnees "+i+";"+j);
+		System.out.println("aux coordonnees "+i+";"+j+";"+z);
 		return id;
 	}
 

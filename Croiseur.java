@@ -1,12 +1,13 @@
 public class Croiseur extends Bateau	{
 	private int resistance = 4;
-	private int munitions = 2;
+	private int NB_MUNITIONS = 2;
+	private Munition[] munitions = new Munition[NB_MUNITIONS];
 	public static final int degats = 2;
 	public static final int taille = 4;
 	public Orientation orientation;
 	//attaque ?
 
-	private Position tete = new Position(3, 3);
+	private Position tete;
 	private Position[] emplacements = new Position[taille];
 
 	public Croiseur()	{	}
@@ -14,6 +15,11 @@ public class Croiseur extends Bateau	{
 	public Croiseur(Position pos)	{	// position de départ
 		this.tete = pos;
 	}
+
+	public int getProfondeur()	{
+		return this.emplacements[0].getZ();
+	}
+
 	public Orientation getOrientation()	{
 		return this.orientation;
 	}
@@ -35,15 +41,19 @@ public class Croiseur extends Bateau	{
 	}
 
 	public int getMunitions()	{
-		return this.munitions;
+		return this.NB_MUNITIONS;
+	}
+
+	public Munition getMunitionCourante()	{
+		return this.munitions[NB_MUNITIONS-1];
 	}
 
 	public int getDegats()	{
-		return this.degats;
+		return this.munitions[NB_MUNITIONS-1].getPuissance();
 	}
 
 	public void setMunition(int nb)	{
-		this.munitions = nb;
+		this.NB_MUNITIONS = nb;
 	}
 
 	public void setResistance(int nb)	{
@@ -95,6 +105,13 @@ public class Croiseur extends Bateau	{
 	public void affBoat()	{
 		for (int i = 0; i < this.emplacements.length; i++) {
 			System.out.println(this.emplacements[i]);
+		}
+	}
+
+	public void initMunitions()	{
+		for (int i = 0; i < this.munitions.length; i++) {
+			munitions[i] = new Munition();
+			munitions[i].setRandomAttributs(this); // this indique objet
 		}
 	}
 }

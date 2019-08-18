@@ -1,13 +1,14 @@
 import java.util.Scanner;
 
 public class Projet	{
-// FAIRE TIRER ET RESISTANCE (mine pportée 0 !)
+// (mine pportée 0 !)
 // AJOUTER LA 3E DIMENSION
+
 
 // le prof n'aime pas les returns dans boucle (à éviter)
   public static void main(String[] args)	{
 
-    ChampBataille cb = new ChampBataille(Globals.getLongueurChampMax());
+    ChampBataille cb = new ChampBataille(Globals.getLongueurChampMax(), Globals.getProfondeurChampMax());
     System.out.println(cb);
     EnsembleBateaux eb = new EnsembleBateaux();
 

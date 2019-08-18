@@ -23,7 +23,7 @@ public class EnsembleBateaux	{
 		String infos = "";
 		String[] noms = {"F1", "F2", "C1", "C2", "S1", "S2"};
 		for (int i = 0; i < ensemble.length; i++) {
-			infos+=i+". "+noms[i]+" (VIE : "+ensemble[i].getResistance()+" MUNITIONS : "+ensemble[i].getMunitions()+" "+ensemble[i].getTaille()+")\n";
+			infos+=i+". "+noms[i]+" (VIE : "+ensemble[i].getResistance()+" MUNITIONS : "+ensemble[i].getMunitions()+")\n";
 		}
 
 		return infos;
@@ -51,6 +51,7 @@ public class EnsembleBateaux	{
 					isvalid = false;
 					//System.out.println("on recommence");
 				}
+				ensemble[i].initMunitions();
 			}
 		}
 	}
@@ -76,7 +77,7 @@ public class EnsembleBateaux	{
 		while (!bonchoix)	{
 			choix = sc.nextInt();
 			if (choix < 0 || choix > 5) {
-				System.out.println("Veuillez choisir un nombre entre 0 et 3 inclus !");
+				System.out.println("Veuillez choisir un nombre entre 0 et 5 inclus !");
 			}
 			else	{
 				if (ensemble[choix].estCoule()) {

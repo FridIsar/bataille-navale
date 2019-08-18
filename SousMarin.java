@@ -1,12 +1,12 @@
 public class SousMarin extends Bateau	{
 	private int resistance = 4;
-	private int munitions = 2;
-	public static final int degats = 2;
+	private int NB_MUNITIONS = 10;
+	private Munition[] munitions = new Munition[NB_MUNITIONS];
 	public static final int taille = 2;
 	public Orientation orientation;
 	//attaque ?
 
-	private Position tete = new Position(3, 3);
+	private Position tete;
 	private Position[] emplacements = new Position[taille];
 
 	public SousMarin()	{	}
@@ -14,6 +14,7 @@ public class SousMarin extends Bateau	{
 	public SousMarin(Position pos)	{	// position de départ
 		this.tete = pos;
 	}
+
 	public Orientation getOrientation()	{
 		return this.orientation;
 	}
@@ -30,20 +31,28 @@ public class SousMarin extends Bateau	{
 		return this.taille;
 	}
 
+	public int getDegats()	{
+		return this.getMunitionCourante().getPuissance();
+	}
+
+	public Munition getMunitionCourante()	{
+		return this.munitions[NB_MUNITIONS-1];
+	}
+
 	public Position getTete()	{
 		return this.tete;
 	}
 
 	public int getMunitions()	{
-		return this.munitions;
+		return this.NB_MUNITIONS;
 	}
 
-	public int getDegats()	{
-		return this.degats;
+	public int getProfondeur()	{
+		return this.emplacements[0].getZ();
 	}
 
 	public void setMunition(int nb)	{
-		this.munitions = nb;
+		this.NB_MUNITIONS = nb;
 	}
 
 	public void setResistance(int nb)	{
@@ -92,9 +101,29 @@ public class SousMarin extends Bateau	{
 		this.emplacements[index] = pos;
 	}
 
+
+	public void plonger()	{
+		for (int i = 0; i < this.emplacements.length; i++) {
+			emplacements[i].avanceeProfondeur();
+		}
+	}
+
+	public void remonter()	{
+		for (int i = 0; i < this.emplacements.length; i++) {
+			emplacements[i].reculeeProfondeur();
+		}
+	}
+
 	public void affBoat()	{
 		for (int i = 0; i < this.emplacements.length; i++) {
 			System.out.println(this.emplacements[i]);
+		}
+	}
+
+	public void initMunitions()	{
+		for (int i = 0; i < this.munitions.length; i++) {
+			munitions[i] = new Munition();
+			munitions[i].setRandomAttributs(this); // this indique objet
 		}
 	}
 }
