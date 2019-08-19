@@ -75,9 +75,15 @@ public class EnsembleBateaux	{
 		boolean bonchoix = false;
 		int choix = -1;
 		while (!bonchoix)	{
-			choix = sc.nextInt();
-			if (choix < 0 || choix > 5) {
-				System.out.println("Veuillez choisir un nombre entre 0 et 5 inclus !");
+			if (Globals.getTourDuJoueur())	{
+				choix = sc.nextInt();
+			}
+			else {
+				double choixAleatoire =  Math.random() * 6 + 1;
+				choix = (int) choixAleatoire;
+			}
+			if (choix < 1 || choix > 6) {
+				System.out.println("Veuillez choisir un nombre entre 1 et 6 inclus !");
 			}
 			else	{
 				if (ensemble[choix].estCoule()) {
@@ -88,15 +94,27 @@ public class EnsembleBateaux	{
 				}
 			}
 		}
-		return choix;
+		return choix-1; //-1 pour adapter à l'array
 	}
 
 	public void actionsBateaux(int bateauChoisi, ChampBataille cb)	{
 		Scanner sc = new Scanner(System.in);
 		int choix = -1;
-		while (choix < 1 || choix > 4)	{
-			System.out.println("1. Pour avancer\n2. Pour reculer\n3. Pour tirer\n4. Pour position de la tête");
-			choix = sc.nextInt();
+		int choixMax = 4;
+		String propositions = "1. Pour avancer\n2. Pour reculer\n3. Pour tirer\n4. Pour position de la tête";
+		if (ensemble[bateauChoisi] instanceof SousMarin)	{
+			propositions+="\n5. Pour remonter\n6. Pour plonger";
+			choixMax = 6;
+		}
+		while (choix < 1 || choix > choixMax)	{
+			System.out.println(propositions);
+			if (Globals.getTourDuJoueur())	{
+				choix = sc.nextInt();
+			}
+			else {
+				double choixAleatoire =  Math.random() * choixMax + 1;
+				choix = (int) choixAleatoire;
+			}
 		}
 
 		if (choix == 1) {
@@ -141,6 +159,32 @@ public class EnsembleBateaux	{
 
 		if (choix == 4) {
 			System.out.println(ensemble[bateauChoisi].getEmplacements()[0]);
+		}
+
+		if (choix == 5) {
+			((SousMarin) ensemble[bateauChoisi]).remonter();
+			if (!((SousMarin) ensemble[bateauChoisi]).isInside()) {
+				System.out.println("Vous ne pouvez aller dehors ! retour à la position initiale");
+				((SousMarin) ensemble[bateauChoisi]).plonger();
+			}
+			if (((SousMarin) ensemble[bateauChoisi]).touchesA(ensemble)) {
+				System.out.println("Bateau touché ! vous perdez un point de résistance et retournez à la position initiale");
+				((SousMarin) ensemble[bateauChoisi]).refreshResistance(1);
+				((SousMarin) ensemble[bateauChoisi]).plonger();
+			}
+		}
+
+		if (choix == 6) {
+			((SousMarin) ensemble[bateauChoisi]).plonger();
+			if (!((SousMarin) ensemble[bateauChoisi]).isInside()) {
+				System.out.println("Vous ne pouvez aller dehors ! retour à la position initiale");
+				((SousMarin) ensemble[bateauChoisi]).remonter();
+			}
+			if (((SousMarin) ensemble[bateauChoisi]).touchesA(ensemble)) {
+				System.out.println("Bateau touché ! vous perdez un point de résistance et retournez à la position initiale");
+				((SousMarin) ensemble[bateauChoisi]).refreshResistance(1);
+				((SousMarin) ensemble[bateauChoisi]).remonter();
+			}
 		}
 	}
 

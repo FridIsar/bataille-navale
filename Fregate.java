@@ -1,9 +1,8 @@
 public class Fregate extends Bateau	{
-	private int resistance = 4;
-	private int NB_MUNITIONS = 2;
+	private int resistance = 6;
+	private int NB_MUNITIONS = 10;
 	private Munition[] munitions = new Munition[NB_MUNITIONS];
-	public static final int degats = 2;
-	public static final int taille = 3;
+	public static final int taille = 4;
 	public Orientation orientation;
 	//attaque ?
 
@@ -108,7 +107,7 @@ public class Fregate extends Bateau	{
 	}
 
 	public void initMunitions()	{
-		System.out.println(munitions[0]);
+		//System.out.println(munitions[0]);
 		for (int i = 0; i < this.munitions.length; i++) {
 			munitions[i] = new Munition();
 			munitions[i].setRandomAttributs(this); // this indique objet

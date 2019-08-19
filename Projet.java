@@ -30,6 +30,8 @@ public class Projet	{
 				eb.actionsBateaux(bateauChoisi, cb);
 				cb.refresh(eb.getEnsemble());
 				System.out.println(cb);
+        System.out.println(Globals.getMessage());
+        Globals.toggleTourDuJoueur();
 			}
 		}
 	}

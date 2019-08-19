@@ -1,9 +1,8 @@
 public class Croiseur extends Bateau	{
-	private int resistance = 4;
-	private int NB_MUNITIONS = 2;
+	private int resistance = 10;
+	private int NB_MUNITIONS = 10;
 	private Munition[] munitions = new Munition[NB_MUNITIONS];
-	public static final int degats = 2;
-	public static final int taille = 4;
+	public static final int taille = 3;
 	public Orientation orientation;
 	//attaque ?
 
@@ -49,7 +48,7 @@ public class Croiseur extends Bateau	{
 	}
 
 	public int getDegats()	{
-		return this.munitions[NB_MUNITIONS-1].getPuissance();
+		return this.munitions[NB_MUNITIONS].getPuissance();
 	}
 
 	public void setMunition(int nb)	{

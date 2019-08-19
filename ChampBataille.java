@@ -14,57 +14,59 @@ public class ChampBataille	{
 
   public String toString() {
     String s = new String();
-		System.out.println(Globals.getProfondeurChampMax());
 		for (int z = 0; z < Globals.getProfondeurChampMax(); z++) {
-			s+="|P"+z+"|";
-			for (int i = 0; i < t.length; i++)	{
-				if (i < 10)	{
-					s+=" "+i;
-				}
-				else	{
-					s+=i;
-				}
-				s+="|";
-			}
-			s+="\n";
-			for (int i = 0; i < t.length; i++)	{
-				s+="|";
-				if (i < 10)	{
-					s+=" "+i;
-				}
-				else	{
-					s+=i;
-				}
-				s+="|";
-				for (int j = 0; j < t[i].length; j++) {
-					int type = t[i][j][z];
-					switch (type)  {
-						case 0:
-						s+="~~";
-						break;
-						case 1:
-						s+="F1";
-						break;
-						case 2:
-						s+="F2";
-						break;
-						case 3:
-						s+="C1";
-						break;
-						case 4:
-						s+="C2";
-						break;
-						case 5:
-						s+="S1";
-						break;
-						case 6:
-						s+="S2";
-						break;
-					}
-					s+="|";
-				}
-				s+="\n";
-			}
+      if (aUnBateau(z)) {
+        s+="|P"+z+"|";
+        for (int i = 0; i < t.length; i++)	{
+          if (i < 10)	{
+            s+=" "+i;
+          }
+          else	{
+            s+=i;
+          }
+          s+="|";
+        }
+        s+="\n";
+        for (int i = 0; i < t.length; i++)	{
+          s+="|";
+          if (i < 10)	{
+            s+=" "+i;
+          }
+          else	{
+            s+=i;
+          }
+          s+="|";
+          for (int j = 0; j < t[i].length; j++) {
+            int type = t[i][j][z];
+            switch (type)  {
+              case 0:
+              s+="~~";
+              break;
+              case 1:
+              s+="F1";
+              break;
+              case 2:
+              s+="F2";
+              break;
+              case 3:
+              s+="C1";
+              break;
+              case 4:
+              s+="C2";
+              break;
+              case 5:
+              s+="S1";
+              break;
+              case 6:
+              s+="S2";
+              break;
+            }
+            s+="|";
+          }
+          s+="\n";
+        }
+        s+="\n";
+      }
 		}
     return s;
   }
@@ -93,6 +95,18 @@ public class ChampBataille	{
 				}
 			}
 		}
+  }
+
+  public boolean aUnBateau(int z) {
+    boolean cond = false;
+    for (int i = 0; i < t.length && cond == false; i++)	{
+      for (int j = 0; j < t[i].length && cond == false; j++) {
+        if (t[i][j][z] != 0) {
+          cond = true;
+        }
+      }
+    }
+    return cond;
   }
 
 }
