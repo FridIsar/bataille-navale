@@ -11,7 +11,7 @@ public class SousMarin extends Bateau	{
 
 	public SousMarin()	{	}
 
-	public SousMarin(Position pos)	{	// position de départ
+	public SousMarin(Position pos)	{	// position de depart
 		this.tete = pos;
 	}
 

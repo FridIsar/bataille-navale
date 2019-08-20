@@ -1,3 +1,3 @@
 J'aurais pu rendre le programme plus (modulable ?), surtout au niveau des
-bateaux ou j'aurais pu faire des instanceof à la place des entiers
+bateaux ou j'aurais pu faire des instanceof a la place des entiers
 mais je n'en ai pas encore le savoir-faire.

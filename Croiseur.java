@@ -11,7 +11,7 @@ public class Croiseur extends Bateau	{
 
 	public Croiseur()	{	}
 
-	public Croiseur(Position pos)	{	// position de départ
+	public Croiseur(Position pos)	{	// position de depart
 		this.tete = pos;
 	}
 

@@ -11,7 +11,7 @@ public class Fregate extends Bateau	{
 
 	public Fregate()	{	}
 
-	public Fregate(Position pos)	{	// position de départ
+	public Fregate(Position pos)	{	// position de depart
 		this.tete = pos;
 	}
 	public Orientation getOrientation()	{

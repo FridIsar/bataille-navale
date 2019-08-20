@@ -11,16 +11,16 @@ public class Munition	{
 		this.puissance = 0;
 		this.profondeur = 0;
 		if (bat instanceof SousMarin)	{
-			double portee =  Math.random() * Globals.getLongueurChampMax() + 1;
+			double portee =  Math.random() * (Globals.getLongueurChampMax()-1) + 1;
 			double puissance =  Math.random() * 4 + 1;
-			double profondeur =  Math.random() * Globals.getProfondeurChampMax() + 1;
+			double profondeur =  Math.random() * (Globals.getProfondeurChampMax()-1) + 1;
 			this.portee = (int) portee;
 			this.puissance = (int) puissance;
 			this.profondeur = (int) profondeur;
 		}
 		else	{
 			if (bat instanceof Fregate)	{ // MISSILE
-				double portee =  Math.random() * Globals.getLongueurChampMax() + 1;
+				double portee =  Math.random() * (Globals.getLongueurChampMax()-1) + 1;
 				double puissance =  Math.random() * 3 + 1;
 				this.portee = (int) portee;
 				this.puissance = (int) puissance;

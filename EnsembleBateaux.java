@@ -99,7 +99,7 @@ public class EnsembleBateaux	{
 			}
 		}
 		Globals.appendMessage(ensemble[choix-1].toString());
-		return choix-1; //-1 pour adapter à l'array
+		return choix-1; //-1 pour adapter a l'array
 	}
 
 	public void actionsBateaux(int bateauChoisi, ChampBataille cb)	{
@@ -126,11 +126,11 @@ public class EnsembleBateaux	{
 			ensemble[bateauChoisi].avancer();
 			Globals.appendMessage(" avance d'une case "+ensemble[bateauChoisi].getOrientation()+"ement");
 			if (!ensemble[bateauChoisi].isInside()) {
-				Globals.appendMessage(" mais ne peut aller dehors ! Retour à sa position initiale");
+				Globals.appendMessage(" mais ne peut aller dehors ! Retour a sa position initiale");
 				ensemble[bateauChoisi].reculer();
 			}
 			if (ensemble[bateauChoisi].touchesA(ensemble)) {
-				Globals.appendMessage(" mais il percute un bateau ! Il perd un point de résistance et retourne à sa position initiale");
+				Globals.appendMessage(" mais il percute un bateau ! Il perd un point de resistance et retourne a sa position initiale");
 				ensemble[bateauChoisi].refreshResistance(1);
 				ensemble[bateauChoisi].reculer();
 			}
@@ -140,11 +140,11 @@ public class EnsembleBateaux	{
 			ensemble[bateauChoisi].reculer();
 			Globals.appendMessage(" recule d'une case "+ensemble[bateauChoisi].getOrientation()+"ement");
 			if (!ensemble[bateauChoisi].isInside()) {
-				Globals.appendMessage(" mais ne peut aller dehors ! Retour à sa position initiale");
+				Globals.appendMessage(" mais ne peut aller dehors ! Retour a sa position initiale");
 				ensemble[bateauChoisi].avancer();
 			}
 			if (ensemble[bateauChoisi].touchesA(ensemble)) {
-				Globals.appendMessage(" mais il percute un bateau ! Il perd un point de résistance et retourne à sa position initiale");
+				Globals.appendMessage(" mais il percute un bateau ! Il perd un point de resistance et retourne a sa position initiale");
 				ensemble[bateauChoisi].refreshResistance(1);
 				ensemble[bateauChoisi].avancer();
 			}
@@ -167,11 +167,11 @@ public class EnsembleBateaux	{
 			((SousMarin) ensemble[bateauChoisi]).remonter();
 			Globals.appendMessage(" remonte d'une case");
 			if (!((SousMarin) ensemble[bateauChoisi]).isInside()) {
-				Globals.appendMessage(" mais ne peut aller dehors ! Retour à sa position initiale");
+				Globals.appendMessage(" mais ne peut aller dehors ! Retour a sa position initiale");
 				((SousMarin) ensemble[bateauChoisi]).plonger();
 			}
 			if (((SousMarin) ensemble[bateauChoisi]).touchesA(ensemble)) {
-				Globals.appendMessage(" mais il percute un bateau ! Il perd un point de résistance et retourne à sa position initiale");
+				Globals.appendMessage(" mais il percute un bateau ! Il perd un point de resistance et retourne a sa position initiale");
 				((SousMarin) ensemble[bateauChoisi]).refreshResistance(1);
 				((SousMarin) ensemble[bateauChoisi]).plonger();
 			}
@@ -181,11 +181,11 @@ public class EnsembleBateaux	{
 			((SousMarin) ensemble[bateauChoisi]).plonger();
 			Globals.appendMessage(" plonge d'une case");
 			if (!((SousMarin) ensemble[bateauChoisi]).isInside()) {
-				Globals.appendMessage(" mais ne peut aller dehors ! Retour à sa position initiale");
+				Globals.appendMessage(" mais ne peut aller dehors ! Retour a sa position initiale");
 				((SousMarin) ensemble[bateauChoisi]).remonter();
 			}
 			if (((SousMarin) ensemble[bateauChoisi]).touchesA(ensemble)) {
-				Globals.appendMessage(" mais il percute un bateau ! Il perd un point de résistance et retourne à sa position initiale");
+				Globals.appendMessage(" mais il percute un bateau ! Il perd un point de resistance et retourne a sa position initiale");
 				((SousMarin) ensemble[bateauChoisi]).refreshResistance(1);
 				((SousMarin) ensemble[bateauChoisi]).remonter();
 			}
