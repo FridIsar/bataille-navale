@@ -25,7 +25,7 @@ public class Globals	{
   }
 
   public static String getMessage() {
-    return message;
+    return message+"\n";
   }
 
   public static void appendMessage(String toAdd)  {

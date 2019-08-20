@@ -133,13 +133,13 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 
 	public void avancer()	{
 		for (int i = 0; i < this.getEmplacements().length; i++) {
-			this.setAvancee(i, this.getOrientation());
+			this.setReculee(i, this.getOrientation());
 		}
 	}
 
 	public void reculer()	{
 		for (int i = 0; i < this.getEmplacements().length; i++) {
-			this.setReculee(i, this.getOrientation());
+			this.setAvancee(i, this.getOrientation());
 		}
 	}
 
@@ -153,21 +153,21 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 		int[][][] t = cb.getT();
 
 		if (this instanceof Croiseur)	{
-			System.out.println("Vous lâchez une mine.");
+			Globals.appendMessage(" lâche une mine");
+			Globals.appendMessage(" d'une puissance de "+this.getMunitionCourante().getPuissance()+", d'une profondeur de "+this.getMunitionCourante().getProfondeur());
 			z = 0;
-			while (z < Globals.getProfondeurChampMax()-1 && id == 0) {
+			while (z < this.getMunitionCourante().getProfondeur() && id == 0) {
 				z++;
 				id = t[i][j][z];
-				System.out.println("aux coordonnees "+i+";"+j+";"+z);
 			}
-			System.out.println("z = "+z);
 		}
 
 		else	{
-			System.out.println("Dans quelle direction ?\n1. Nord\n2. Nord-Est\n3. Est\n4. Sud-Est\n5. Sud\n6. Sud-Ouest\n7. Ouest\n8. Nord-Ouest");
+			Globals.appendMessage(" tire avec une puissance de "+this.getMunitionCourante().getPuissance()+", d'une profondeur de "+this.getMunitionCourante().getProfondeur()+", à une distance de "+ this.getMunitionCourante().getPortee() +" dans la direction");
 			Scanner sc = new Scanner(System.in);
 			int choix = 0;
 			if (Globals.getTourDuJoueur())	{
+				System.out.println("Dans quelle direction ?\n1. Nord\n2. Nord-Est\n3. Est\n4. Sud-Est\n5. Sud\n6. Sud-Ouest\n7. Ouest\n8. Nord-Ouest");
 				choix = sc.nextInt();
 			}
 			else {
@@ -178,13 +178,13 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 
 			if (this instanceof SousMarin)	{
 				while (choixProfondeur < 1 || choixProfondeur > 2)	{
-					if (this.getProfondeur() > 0)	{
-						System.out.println("1. Vers le haut ?");
-					}
-					if (this.getProfondeur() < Globals.getProfondeurChampMax()-1)	{
-						System.out.println("2. Vers le bas ?");
-					}
 					if (Globals.getTourDuJoueur())	{
+						if (this.getProfondeur() > 0)	{
+							System.out.println("1. Vers le haut ?");
+						}
+						if (this.getProfondeur() < Globals.getProfondeurChampMax()-1)	{
+							System.out.println("2. Vers le bas ?");
+						}
 						choixProfondeur = sc.nextInt();
 					}
 					else {
@@ -195,11 +195,21 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 			}
 
 			//System.out.println("pos initiale "+pos);
-			int max = t[i].length-1;
+			int limite = Globals.getLongueurChampMax()-1;
+			int max = this.getMunitionCourante().getPortee();
+			int imax = i + max;
+			if (imax > limite) {imax = limite;}
+			int jmax = j + max;
+			if (jmax > limite) {jmax = limite;}
+			int imin = i - max;
+			if (imin < 0) {imin = 0;}
+			int jmin = j - max;
+			if (jmin < 0) {jmin = 0;}
 
 			switch (choix) {
 				case 1:
-				while (i > 0) { //avancee N
+				Globals.appendMessage(" Nord");
+				while (i > imin) { //avancee N
 					i--;
 					id = t[i][j][z];
 					//System.out.println((i)+";"+(j));
@@ -210,7 +220,8 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 				break;
 
 				case 2:
-				while (i > 0 && j < max) { //avancee NE
+				Globals.appendMessage(" Nord-Est");
+				while (i > imin && j < jmax) { //avancee NE
 					i--;
 					j++;
 					id = t[i][j][z];
@@ -222,7 +233,8 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 				break;
 
 				case 3:
-				while (j < max) { //avancee E
+				Globals.appendMessage(" Est");
+				while (j < jmax) { //avancee E
 					j++;
 					id = t[i][j][z];
 					//	System.out.println((i)+";"+(j));
@@ -233,7 +245,8 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 				break;
 
 				case 4:
-				while (i < t.length-1 && j < max) { //avancee SE
+				Globals.appendMessage(" Sud-Est");
+				while (i < imax && j < jmax) { //avancee SE
 					i++;
 					j++;
 					id = t[i][j][z];
@@ -245,7 +258,8 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 				break;
 
 				case 5:
-				while (i < t.length-1) { //avancee S
+				Globals.appendMessage(" Sud");
+				while (i < imax) { //avancee S
 					i++;
 					id = t[i][j][z];
 					//			System.out.println((i)+";"+(j));
@@ -256,7 +270,8 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 				break;
 
 				case 6:
-				while (i < t.length-1 && j > 0) { //avancee SO
+				Globals.appendMessage(" Sud-Ouest");
+				while (i < imax && j > jmin) { //avancee SO
 					i++;
 					j--;
 					id = t[i][j][z];
@@ -268,7 +283,8 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 				break;
 
 				case 7:
-				while (j > 0) { //avancee O
+				Globals.appendMessage(" Ouest");
+				while (j > jmin) { //avancee O
 					j--;
 					id = t[i][j][z];
 					//		System.out.println((i)+";"+(j));
@@ -279,7 +295,8 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 				break;
 
 				case 8:
-				while (i > 0 && j > 0) { //avancee NO
+				Globals.appendMessage(" Nord-Ouest");
+				while (i > imin && j > jmin) { //avancee NO
 					i--;
 					j--;
 					id = t[i][j][z];
@@ -290,16 +307,17 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 				}
 				break;
 			}
-			System.out.println(this.getTete()+" jusquaux coordonnees "+i+";"+j+";"+z);
 			if (this instanceof SousMarin && choixProfondeur != 0) {
 				if (id == 0)	{
 					if (choixProfondeur == 1)	{
+						Globals.appendMessage(" vers le haut");
 						while ((z > z-this.getMunitionCourante().getProfondeur() && z > 0) && id == 0) {
 							z--;
 							id = t[i][j][z];
 						}
 					}
 					if (choixProfondeur == 2)	{
+						Globals.appendMessage(" vers le bas");
 						//System.out.println(" "+this.getMunitionCourante().getProfondeur());
 						while ((z < this.getMunitionCourante().getProfondeur() && z < Globals.getProfondeurChampMax()-1) && id == 0) {
 							z++;
@@ -312,28 +330,28 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 
 		switch (id)  {
 			case 0:
-			System.out.println("rien de touché commandant !");
+			Globals.appendMessage(" mais ne touche aucun bateau");
 			break;
 			case 1:
-			System.out.println("F1 touché");
+			Globals.appendMessage(", F1 est touché");
 			break;
 			case 2:
-			System.out.println("F2 touché");
+			Globals.appendMessage(", C1 est touché");
 			break;
 			case 3:
-			System.out.println("C1 touché");
+			Globals.appendMessage(", S1 est touché");
 			break;
 			case 4:
-			System.out.println("C2 touché");
+			Globals.appendMessage(", F2 est touché");
 			break;
 			case 5:
-			System.out.println("S1 touché");
+			Globals.appendMessage(", C2 est touché");
 			break;
 			case 6:
-			System.out.println("S2 touché");
+			Globals.appendMessage(", S2 est touché");
 			break;
 		}
-		Globals.appendMessage("aux coordonnees "+i+";"+j+";"+z);
+		Globals.appendMessage(" aux coordonnees ("+i+";"+j+";"+z+")");
 		return id;
 	}
 
@@ -359,5 +377,26 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 			munRestante = false;
 		}
 		return munRestante;
+	}
+
+	public String toString()	{
+		String s = "";
+		if (Globals.getTourDuJoueur())	{
+			s+="Alliés : ";
+		}
+		else	{
+			s+="Ennemis : ";
+		}
+		if (this instanceof SousMarin)	{
+			s+="Le sous-marin";
+		}
+		if (this instanceof Fregate)	{
+			s+="La frégate";
+		}
+		if (this instanceof Croiseur)	{
+			s+="Le croiseur";
+		}
+		s+=" en position "+this.getTete();
+		return s;
 	}
 }

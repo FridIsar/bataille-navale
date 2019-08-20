@@ -28,7 +28,7 @@ public class Munition	{
 			else	{
 				if (bat instanceof Croiseur)	{ // MINE
 					double puissance =  Math.random() * 5 + 1;
-					double profondeur =  Math.random() * Globals.getProfondeurChampMax() + 1;
+					double profondeur =  Math.random() * (Globals.getProfondeurChampMax()-1) + 1;
 					this.puissance = (int) puissance;
 					this.profondeur = (int) profondeur;
 				}

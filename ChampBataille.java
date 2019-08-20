@@ -13,7 +13,7 @@ public class ChampBataille	{
   }
 
   public String toString() {
-    String s = new String();
+    String s = "\n";
 		for (int z = 0; z < Globals.getProfondeurChampMax(); z++) {
       if (aUnBateau(z)) {
         s+="|P"+z+"|";
@@ -46,16 +46,16 @@ public class ChampBataille	{
               s+="F1";
               break;
               case 2:
-              s+="F2";
-              break;
-              case 3:
               s+="C1";
               break;
+              case 3:
+              s+="S1";
+              break;
               case 4:
-              s+="C2";
+              s+="F2";
               break;
               case 5:
-              s+="S1";
+              s+="C2";
               break;
               case 6:
               s+="S2";

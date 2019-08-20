@@ -13,15 +13,29 @@ public class Projet	{
     EnsembleBateaux eb = new EnsembleBateaux();
 
     boolean game = true;
+    String messages = "";
+    int nbTours = 1;
+
 		eb.initPlacements();
 		cb.refresh(eb.getEnsemble());
 		System.out.println(cb);
 
     while(game) {
-      System.out.println(eb.getInfosBateaux());
+      if (Globals.getTourDuJoueur())  { //si c'est le tour du joueur
+        System.out.println("Tour "+nbTours+" :\n");
+        nbTours++;
+        messages = "";
+        System.out.println(eb.getInfosBateaux());
+      }
 
-			if (eb.noMunOrCoules()) {
-				System.out.println("Game over !");
+			if (eb.noMunOrCoules()) { //si plus d'ammo ou bateaux
+				System.out.println("Game over.");
+        if (Globals.getTourDuJoueur())  {
+          System.out.println("Vous avez perdu...");
+        }
+        else  {
+          System.out.println("Vous avez gagné !");
+        }
 				game = false;
 			}
 
@@ -29,8 +43,14 @@ public class Projet	{
 				int bateauChoisi = eb.choisirBateau();
 				eb.actionsBateaux(bateauChoisi, cb);
 				cb.refresh(eb.getEnsemble());
-				System.out.println(cb);
-        System.out.println(Globals.getMessage());
+
+        messages += Globals.getMessage()+"\n"; //affichage actions
+
+        if (!Globals.getTourDuJoueur())  {
+          System.out.println(cb);
+          System.out.println(messages);
+        }
+
         Globals.toggleTourDuJoueur();
 			}
 		}
