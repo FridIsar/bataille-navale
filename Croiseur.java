@@ -109,8 +109,7 @@ public class Croiseur extends Bateau	{
 
 	public void initMunitions()	{
 		for (int i = 0; i < this.munitions.length; i++) {
-			munitions[i] = new Munition();
-			munitions[i].setRandomAttributs(this); // this indique objet
+			munitions[i] = new Mine();
 		}
 	}
 }

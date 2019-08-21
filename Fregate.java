@@ -109,8 +109,7 @@ public class Fregate extends Bateau	{
 	public void initMunitions()	{
 		//System.out.println(munitions[0]);
 		for (int i = 0; i < this.munitions.length; i++) {
-			munitions[i] = new Munition();
-			munitions[i].setRandomAttributs(this); // this indique objet
+			munitions[i] = new Missile();
 		}
 	}
 }
