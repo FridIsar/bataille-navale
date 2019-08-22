@@ -1,0 +1,35 @@
+Ce qui a été fait :
+
+- Une classe Position comportant les attributs x, y, z. (Un bateau est un ensemble de Positions)
+
+- Une classe abstraite Bateau contenant 
+	- les méthodes concrètes concernant toutes ses classes filles (SousMarin, Fregate et Croiseur) : tirer, avancer et reculer.
+	- les méthodes abstraites concernant certaines de ses classes filles, les getters et les setters.
+
+- Une classe ChampBataille contenant le tableau en 3 dimensions et une méthode permettant son affichage sous forme textuelle.
+ 
+- Une classe Globals contenant les variables de longueur, profondeur, message à l'utilisateur et tour du joueur.
+
+- Une classe Projet, avec le main contenant les méthodes principales et la boucle principale du jeu.
+
+- Une classe EnsembleBateau contenant le tableau de Bateaux et les méthodes permettant au joueur de choisir les actions qu'un bateau doit effectuer par tour.
+
+- La classe abstraite Munition ayant comme classe fille chaque type de munition et contenant les getters et setters.
+
+- Les classes Torpilles, Mine et Missile ayant un constructeur attribuant des valeurs aléatoires à leur variables.
+
+- Une IA peu intelligente : les choix d'action des bateaux ennemis sont faits aléatoirement.
+
+- Contrôle de saisies.
+
+- Gestion d'exceptions.
+
+
+Ce qui n'a pas été fait :
+
+- Modularité complète.
+
+- Une IA plus avancée, qui attaque spécifiquement mes bateaux (non fait par manque de temps).
+
+- Exception si l'utilisateur entre autre chose qu'un entier.
+
