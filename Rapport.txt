@@ -1,8 +1,0 @@
-Je pense avoir tout fait pour l'instant
-
-J'aurais pu
-- rendre le programme plus (modulable ?), surtout au niveau des
-bateaux ou j'aurais pu faire des instanceof a la place des entiers
-mais je n'en ai pas encore le savoir-faire.
-- faire une IA plus avancée, qui attaque spécifiquement mes bateaux
-mais je ne l'ai pas fait par manque de temps.

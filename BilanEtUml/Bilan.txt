@@ -32,4 +32,3 @@ Ce qui n'a pas été fait :
 - Une IA plus avancée, qui attaque spécifiquement mes bateaux (non fait par manque de temps).
 
 - Exception si l'utilisateur entre autre chose qu'un entier.
-
