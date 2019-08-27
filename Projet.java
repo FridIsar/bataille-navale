@@ -1,11 +1,8 @@
 import java.util.Scanner;
 
 public class Projet	{
-// (mine pportee 0 !)
-// AJOUTER LA 3E DIMENSION
 
 
-// le prof n'aime pas les returns dans boucle (a eviter)
   public static void main(String[] args)	{
 
     ChampBataille cb = new ChampBataille(Globals.getLongueurChampMax(), Globals.getProfondeurChampMax());
@@ -30,12 +27,6 @@ public class Projet	{
 
 			if (eb.noMunOrCoules()) { //si plus d'ammo ou bateaux
 				System.out.println("Game over.");
-        if (Globals.getTourDuJoueur())  {
-          System.out.println("Vous avez perdu...");
-        }
-        else  {
-          System.out.println("Vous avez gagne !");
-        }
 				game = false;
 			}
 

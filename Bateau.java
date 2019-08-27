@@ -1,24 +1,13 @@
-// When we create an abstract class, we are creating a
-// base class that might have one or more completed
-// methods but at least one or more methods are left
-//  uncompleted and declared abstract. If all the
-//  methods of an abstract class are uncompleted then
-//  it is same as an interface. The purpose of an
-//   abstract class is to provide a base class
-// 	definition for how a set of derived classes
-// 	will work and then allow the programmers to
-// 	fill the implementation in the derived classes.
-
 import java.util.Scanner;
 
-public abstract class Bateau	{ //rendre abstraite + add methods
+public abstract class Bateau	{
 
 	private int resistance;
 	private int munitions;
 	public static int taille;
 	public static int degats;
 	public Orientation orientation;
-	//attaque ?
+
 
 	private Position tete;
 	private Position[] emplacements;
@@ -30,7 +19,6 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 		AntiDiagonal;
 	}
 
-	//public abstract void tirer();
 	public abstract int getTaille();
 	public abstract int getResistance();
 	public abstract int getMunitions();
@@ -71,7 +59,6 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 			z = (int) zAleatoire;
 		}
 		this.setTete(new Position((x-1),(y-1),(z-1)));
-		//System.out.println((x-1) +"and"+ (y-1));
 	}
 
 
@@ -109,7 +96,6 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 			if (this != bateaux[i])	{ //pas de equals ici car on compare les adresses
 				if (!bateaux[i].estCoule())	{
 					if (this.touches(bateaux[i]))	{
-						//System.out.println("le boat is hit !");
 						isHit = true;
 					}
 				}
@@ -123,7 +109,6 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 		for (int i = 0; i < this.getEmplacements().length; i++) {
 			for (int j = 0; j < bateau.getEmplacements().length; j++)	{
 				if (this.getEmplacements()[i].equals(bateau.getEmplacements()[j]))	{
-					//System.out.println("le position is hit !");
 					isHit = true;
 				}
 			}
@@ -194,7 +179,7 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 				}
 			}
 
-			//System.out.println("pos initiale "+pos);
+
 			int limite = Globals.getLongueurChampMax()-1;
 			int max = this.getMunitionCourante().getPortee();
 			int imax = i + max;
@@ -263,7 +248,6 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 				while (j > jmin) { //avancee O
 					j--;
 					id = t[i][j][z];
-					//		System.out.println((i)+";"+(j));
 					if (id!=0)	{
 						break;
 					}
@@ -291,7 +275,6 @@ public abstract class Bateau	{ //rendre abstraite + add methods
 					}
 					if (choixProfondeur == 2)	{
 						Globals.appendMessage(" vers le bas");
-						//System.out.println(" "+this.getMunitionCourante().getProfondeur());
 						while ((z < this.getMunitionCourante().getProfondeur() && z < Globals.getProfondeurChampMax()-1) && id == 0) {
 							z++;
 							id = t[i][j][z];

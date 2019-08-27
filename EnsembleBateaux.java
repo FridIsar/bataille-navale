@@ -53,7 +53,6 @@ public class EnsembleBateaux	{
 			for(int i = 0; i < ensemble.length; i++)	{
 				if(ensemble[i].touchesA(ensemble))	{
 					isvalid = false;
-					//System.out.println("on recommence");
 				}
 				ensemble[i].initMunitions();
 			}
@@ -62,13 +61,24 @@ public class EnsembleBateaux	{
 
 	public boolean noMunOrCoules()	{
 		boolean sontTousMorts = false;
-		int bateauxMorts = 0;
-		for (int i = 0; i < ensemble.length; i++) {
+		int bateauxGentilsMorts = 0;
+		int bateauxMechantsMorts = 0;
+		for (int i = 0; i < ensemble.length/2; i++) {
 			if (ensemble[i].estCoule() || !ensemble[i].aEncoreMunitions())	{
-				bateauxMorts++;
+				bateauxGentilsMorts++;
 			}
 		}
-		if (bateauxMorts == ensemble.length) {
+		for (int j = ensemble.length/2; j < ensemble.length; j++) {
+			if (ensemble[j].estCoule() || !ensemble[j].aEncoreMunitions())	{
+				bateauxMechantsMorts++;
+			}
+		}
+		if (bateauxGentilsMorts == ensemble.length/2) {
+			System.out.println("Vous avez perdu...");
+			sontTousMorts = true;
+		}
+		if (bateauxMechantsMorts == ensemble.length/2) {
+			System.out.println("Vous avez gagné !");
 			sontTousMorts = true;
 		}
 		return sontTousMorts;
@@ -91,7 +101,9 @@ public class EnsembleBateaux	{
 			}
 			else	{
 				if (ensemble[choix-1].estCoule()) {
-					System.out.println("Vous ne pouvez choisir un bateau mort !");
+					if (Globals.getTourDuJoueur())	{
+						System.out.println("Vous ne pouvez choisir un bateau mort !");
+					}
 				}
 				else {
 					bonchoix = true;

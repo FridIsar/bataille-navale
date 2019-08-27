@@ -1,6 +1,6 @@
 public class Fregate extends Bateau	{
 	private int resistance = 6;
-	private int NB_MUNITIONS = 2;
+	private int NB_MUNITIONS = 10;
 	private Munition[] munitions = new Munition[NB_MUNITIONS];
 	public static final int taille = 4;
 	public Orientation orientation;
@@ -107,7 +107,6 @@ public class Fregate extends Bateau	{
 	}
 
 	public void initMunitions()	{
-		//System.out.println(munitions[0]);
 		for (int i = 0; i < this.munitions.length; i++) {
 			munitions[i] = new Missile();
 		}
